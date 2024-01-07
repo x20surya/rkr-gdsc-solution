@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
+        @keyframes card {
+            from{
+                transform: translate3d(-10rem,25rem,0) ;
+                opacity:0;
+            }
+            to{
+                transform: translate3d(0,0,0) ;
+                opacity:1;
+            }
+        }
+        ul{
+            list-style: none;
+        }
         a{
             text-decoration: none;
         }
@@ -26,7 +39,7 @@
             justify-content: space-around;
             border-bottom-left-radius: 0.8vw;
             border-bottom-right-radius: 0.8vw;
-            border: 2px solid rgb(209, 209, 209);
+            border: 0.1vw solid rgb(209, 209, 209);
         }
         .bar{
             border:0;
@@ -36,7 +49,7 @@
             min-width:80vw;
         }
         .header img{
-            width:70vw;
+            width:55dvh;
             max-width: 600px;
         }
         .menu-buttons{
@@ -60,7 +73,7 @@
             gap:1.5dvh
         }
         .card{
-            border :2px dashed black;
+            border :0.15vw dashed black;
             border-radius: 2vw;
             display: flex;
             justify-content: center;
@@ -176,6 +189,25 @@
             opacity: 1;
             transform: translate3d(0,0,0);
         }
+        .recent-suggestion>h1{
+            text-align: right;
+            padding-right: 2vw;
+        }
+        .recent-donor{
+            text-align: left;
+            padding-left: 2vw;
+        }
+        .recent-donor>ul{
+            padding-left: 1vw;
+        }
+        .recent-suggestion>ul{
+            padding: 0;
+            text-align: end;
+            padding-right: 2vw;
+        }
+        .recent-donor,.recent-suggestion{
+            color: rgb(88, 88, 88);
+        }
         /*------------------------------*/
         @media(max-width:1100px){
             .donate{
@@ -190,18 +222,49 @@
             width: 0;
         }
         }
+       .info{
+            display: flex;
+            flex-direction: column;
+       } 
+       .info>*{
+            text-align: center;
+       }
+       .info>*{
+            background-color: blanchedalmond;
+            margin: 0 4vw;
+            border-radius: 1vw;
+            padding: 2dvh 5vw;
+            border: 0.2vw dashed white;
+            margin-bottom: 5dvh;
+       }
+       
+       .info h2{
+            padding: 0;
+            font-size: 8dvh;
+            color: rgb(70, 38, 0);
+       }
+       .info p, .info ul{
+            padding: 0;
+            font-size: 3dvh;
+            line-height: 6dvh;
+       }
+       .info>*{
+            animation: card linear ;
+            animation-timeline: view();
+            animation-range: entry 00% cover 40%;
+       }
     </style>
 </head>
 <body>
-    
+
     <div class="loader-container">
         <div class="loader">
             
         </div>
     </div>
 
-    <div class=" header">
-        <div class="bar header">
+    <div class="header">
+        <div class="bar ">
             <img src="./Screenshot 2024-01-06 192956.png" alt="logo/name">
             <div class="menu-buttons">
                 <a href="">About</a>
