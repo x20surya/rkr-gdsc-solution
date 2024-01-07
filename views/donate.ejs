@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            display: grid;
+            place-content: center;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <input placeholder="City" type="city" id="city" />
+        <input placeholder="Id" type="id" id="id" />
+        <input placeholder="Organization" type="organization" id="organization">
+        <input placeholder="Address" type="address" id="address" />
+        <input placeholder="Latitude" type="latitude" id="latitude" />
+        <input placeholder="Longitude" type="longitude" id="longitude" />
+
+
+    </div>
+    <div>
+        <button id="submit">Submit</button>
+    </div>
+    <h1 id="data"></h1>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBArOVoz0GEbbHzROw3CQy21xKzJZZBoyg",
+            authDomain: "gdsc-solution-d963e.firebaseapp.com",
+            databaseURL: "https://gdsc-solution-d963e-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "gdsc-solution-d963e",
+            storageBucket: "gdsc-solution-d963e.appspot.com",
+            messagingSenderId: "868921508827",
+            appId: "1:868921508827:web:4fb017bdd70b8a4ad19dfe",
+            measurementId: "G-Q8HQPBRYC8"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const db = getDatabase();
+
+        let SubmitBtn = document.getElementById("submit");
+
+        function save() {
+            var city = document.getElementById("city").value;
+            var id = document.getElementById("id").value;
+            var organization = document.getElementById("organization").value;
+            var address = document.getElementById("address").value;
+            var latitude = document.getElementById("latitude").value;
+            var longitude = document.getElementById("longitude").value;
+            set(ref(db, "city/"+city + "/" + id),{
+                organization: organization,
+                address : address,
+                latitude : latitude,
+                longitude : longitude,
+                
+            }).then(()=>{
+                alert("saved");
+            })
+            .catch((error)=>{
+                alert('error');
+                console.log(error);
+            })
+        }
+
+        function getData(){
+            var city = document.getElementById("city").value;
+            var id = document.getElementById("id").value;
+            var organization = document.getElementById("organization").value;
+            var address = document.getElementById("address").value;
+            var latitude = document.getElementById("latitude").value;
+            var longitude = document.getElementById("longitude").value;
+            const dbRef = ref(db);
+
+            get(child(dbRef, 'city/'+ city)).then((snapshot)=>{
+                if(snapshot.exists()){
+                    document.getElementById("data").innerHTML = JSON.stringify(snapshot.val());
+                }
+                else{
+                    alert("id does not exist");
+                }
+            })
+            .catch((error)=>{
+                alert("error");
+                console.log(error);
+            });
+        }
+
+        SubmitBtn.addEventListener("click", getData);
+
+
+    </script>
+</body>
+
+</html>
