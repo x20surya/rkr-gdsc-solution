@@ -16,6 +16,10 @@
             display: flex;
             flex-direction: column;
         }
+        .table{
+            flex-direction: row;
+            gap: 10px;
+        }
     </style>
 </head>
 
@@ -23,18 +27,24 @@
 
     <div>
         <input placeholder="City" type="city" id="city" />
-        <input placeholder="Id" type="id" id="id" />
+        <!-- <input placeholder="Id" type="id" id="id" />
         <input placeholder="Organization" type="organization" id="organization">
         <input placeholder="Address" type="address" id="address" />
         <input placeholder="Latitude" type="latitude" id="latitude" />
-        <input placeholder="Longitude" type="longitude" id="longitude" />
+        <input placeholder="Longitude" type="longitude" id="longitude" /> -->
 
 
     </div>
     <div>
         <button id="submit">Submit</button>
     </div>
-    <h1 id="data"></h1>
+    <div class="table">
+        <h1 id="ids">id :  <br/> </h1>
+        <h1 id="addresses">address : <br/></h1>
+        <h1 id="organizations">organization : <br/> </h1>
+        <h1 id="latitudes">latitude :  <br/></h1>
+        <h1 id="longitudes">longitude : <br/> </h1>
+    </div>
 
     <script type="module">
 
@@ -80,7 +90,7 @@
             }).then(() => {
                 alert("saved");
                 location.reload();
-                
+
             })
                 .catch((error) => {
                     alert('error');
@@ -90,16 +100,34 @@
 
         function getData() {
             var city = document.getElementById("city").value;
-            var id = document.getElementById("id").value;
-            var organization = document.getElementById("organization").value;
-            var address = document.getElementById("address").value;
-            var latitude = document.getElementById("latitude").value;
-            var longitude = document.getElementById("longitude").value;
+
             const dbRef = ref(db);
 
-            get(child(dbRef, 'city/' + city + "/id" + id)).then((snapshot) => {
+            get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    document.getElementById("data").innerHTML = snapshot.val().latitude;
+
+                    Object.keys(snapshot.val()).forEach(val => {
+                        document.getElementById('ids').innerHTML += val + ' ';
+                        document.getElementById('ids').innerHTML += `<br />`;
+                    });
+
+                    Object.values(snapshot.val()).forEach(val => {
+                        document.getElementById('addresses').innerHTML += val.address + ' ';
+                        document.getElementById('addresses').innerHTML += `<br />`;
+                    });
+                    Object.values(snapshot.val()).forEach(val => {
+                        document.getElementById('organizations').innerHTML += val.organization + ' ';
+                        document.getElementById('organizations').innerHTML += `<br />`;
+                    });
+                    Object.values(snapshot.val()).forEach(val => {
+                        document.getElementById('latitudes').innerHTML += val.latitude + ' ';
+                        document.getElementById('latitudes').innerHTML += `<br />`;
+                    });
+                    Object.values(snapshot.val()).forEach(val => {
+                        document.getElementById('longitudes').innerHTML += val.longitude + ' ';
+                        document.getElementById('longitudes').innerHTML += `<br />`;
+                    });
+
                 }
                 else {
                     alert("id does not exist");
@@ -110,8 +138,8 @@
                     console.log(error);
                 });
         }
-       
-        function clearInput(){
+
+        function clearInput() {
             var city = document.getElementById("city").value;
             var id = document.getElementById("id").value;
             var organization = document.getElementById("organization").value;
@@ -128,8 +156,8 @@
         }
 
         SubmitBtn.addEventListener("click", getData);
-        
-        
+
+
 
 
     </script>
