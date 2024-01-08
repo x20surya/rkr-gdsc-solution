@@ -16,7 +16,8 @@
             display: flex;
             flex-direction: column;
         }
-        .table{
+
+        .table {
             flex-direction: row;
             gap: 10px;
         }
@@ -39,11 +40,11 @@
         <button id="submit">Submit</button>
     </div>
     <div class="table">
-        <h1 id="ids">id :  <br/> </h1>
-        <h1 id="addresses">address : <br/></h1>
-        <h1 id="organizations">organization : <br/> </h1>
-        <h1 id="latitudes">latitude :  <br/></h1>
-        <h1 id="longitudes">longitude : <br/> </h1>
+        <h1 id="ids">id : <br /> </h1>
+        <h1 id="addresses">address : <br /></h1>
+        <h1 id="organizations">organization : <br /> </h1>
+        <h1 id="latitudes">latitude : <br /></h1>
+        <h1 id="longitudes">longitude : <br /> </h1>
     </div>
 
     <script type="module">
@@ -98,6 +99,9 @@
                 })
         }
 
+        const lula = (t, path) =>
+            path.split(".").reduce((r, k) => r?.[k], t)
+
         function getData() {
             var city = document.getElementById("city").value;
 
@@ -106,27 +110,12 @@
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
 
-                    Object.keys(snapshot.val()).forEach(val => {
-                        document.getElementById('ids').innerHTML += val + ' ';
-                        document.getElementById('ids').innerHTML += `<br />`;
-                    });
+                    for (var i = 0; i < Object.keys(snapshot.val()).length; i++) {
 
-                    Object.values(snapshot.val()).forEach(val => {
-                        document.getElementById('addresses').innerHTML += val.address + ' ';
-                        document.getElementById('addresses').innerHTML += `<br />`;
-                    });
-                    Object.values(snapshot.val()).forEach(val => {
-                        document.getElementById('organizations').innerHTML += val.organization + ' ';
-                        document.getElementById('organizations').innerHTML += `<br />`;
-                    });
-                    Object.values(snapshot.val()).forEach(val => {
-                        document.getElementById('latitudes').innerHTML += val.latitude + ' ';
-                        document.getElementById('latitudes').innerHTML += `<br />`;
-                    });
-                    Object.values(snapshot.val()).forEach(val => {
-                        document.getElementById('longitudes').innerHTML += val.longitude + ' ';
-                        document.getElementById('longitudes').innerHTML += `<br />`;
-                    });
+
+
+                        document.getElementById("addresses").innerHTML += lula(snapshot.val(), `id${i + 1}.address`);
+                    }
 
                 }
                 else {
