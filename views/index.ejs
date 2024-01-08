@@ -76,7 +76,7 @@
             border :0.15vw dashed black;
             border-radius: 2vw;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
         }
         .donate{
@@ -125,6 +125,12 @@
             width: 94.5%;
             padding: 0.5vw 1vw;
             border-radius: 2vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .suggest>.card>div{
+            align-items: end;
         }
         .card h2{
             color: rgb(90, 51, 0);
@@ -135,21 +141,24 @@
             font-size: 2dvh;
             line-height: 4dvh;
             color:rgba(48, 27, 0, 0.829);
-            padding-top: 2vw;
-            padding-bottom: 2vw;
         }
         .card a{
             color: white;
-            font-size: 1vw;
+            font-size: 2dvh;
+            margin-top: 0;
+            padding-top: 0;
+
         }
         .buttons{
             background-color: rgb(134, 76, 0);
             display: flex;
-            height: 2vw;
-            width: 6vw;
+            height: 4dvh;
+            width: 12dvh;
             justify-content: center;
             align-items: center;
-            border-radius: 0.5vw;
+            border-radius: 1dvh;
+            margin-top: 0;
+            padding-top: 0;
         }
         /*Loading Screen*/
         .loader-container{
@@ -239,8 +248,7 @@
             animation: card linear ;
             animation-timeline: view();
             animation-range: entry 00% cover 40%;
-       }
-/*do not change above this*/
+       }/*do not change above this*/
        footer{
         background-color: rgb(122, 122, 122);
         height: 60dvh;
@@ -312,7 +320,11 @@
             body{
                 overflow-x: hidden;
             }
-/*do not change above this*/
+            .card p{
+                padding-bottom: 0;
+                line-height: 3dvh;
+            }
+            /*do not change above this in media query*/
             .minicard>h3{
             font-size: 5dvh;
             padding-top:4dvh;
@@ -415,7 +427,7 @@
             </ul>
         </div>
     </div>
-    <footer>
+    <!-- <footer>
         <div class="donate minicard">
             <h3>Donate</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis modi molestiae nam dicta nisi, atque saepe natus ab sed alias officiis culpa, aspernatur sunt esse quos sit suscipit deleniti iusto!</p>
@@ -434,7 +446,7 @@
                 <a href="">Team</a>
             </div>
         </div>
-    </footer>
+    </footer> -->
     <script>
         const loaderContainer = document.querySelector('.loader-container');
         const content = document.querySelector('.content');
