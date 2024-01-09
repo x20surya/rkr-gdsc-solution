@@ -30,6 +30,8 @@
         <input placeholder="Longitude" type="longitude" id="longitude" />
         <input placeholder="Name" type="name" id="name" />
         <input placeholder="Type" type="type" id="type" />
+        <input placeholder="Contact" type="contact" id="contact" />
+        <input placeholder="Email" type="email" id="email" />
 
 
     </div>
@@ -72,6 +74,8 @@
             var longitude = document.getElementById("longitude").value;
             var type = document.getElementById("type").value;
             var name = document.getElementById("name").value;
+            var contact = document.getElementById("contact").value;
+            var email = document.getElementById("email");
             set(ref(db, "city/" + city + "/" + "id" + id), {
 
                 organization: organization,
@@ -80,6 +84,8 @@
                 longitude: longitude,
                 type: type,
                 name: name,
+                contact : contact,
+                email: email,
 
 
 
