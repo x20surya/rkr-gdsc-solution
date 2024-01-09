@@ -38,6 +38,8 @@
     </div>
     <div>
         <button id="submit">Submit</button>
+        <button id="locate">Start</button>
+        <h1 id="place"></h1>
     </div>
     <div class="table">
         <h1 id="ids">id : <br /> </h1>
@@ -111,9 +113,6 @@
                 if (snapshot.exists()) {
 
                     for (var i = 0; i < Object.keys(snapshot.val()).length; i++) {
-
-
-
                         document.getElementById("addresses").innerHTML += lula(snapshot.val(), `id${i + 1}.address`);
                     }
 
@@ -150,6 +149,38 @@
 
 
     </script>
+    <script>
+        const start = document.querySelector('#locate');
+
+        start.addEventListener("click", () => {
+            navigator.geolocation.getCurrentPosition(showCity)
+        })
+
+        // First, get the user's location coordinates using the Geolocation API
+
+
+        // Then, pass the location coordinates to a Geocoding API to get the city name
+        function showCity(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log(latitude, longitude);
+
+            // Make a request to a Geocoding API (e.g. Google Maps Geocoding API)
+            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=5&appid=23487240e250933e64cd979430f95138`;
+
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Parse the city name from the API response
+                    const city = data[0].name;
+
+                    console.log(city);
+                    document.getElementById('place').innerHTML = city;
+                })
+                .catch((error) => console.log(error));
+        }
+    </script>
+
 </body>
 
 </html>
