@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Donate</title>
     <style>
         body {
             height: 100vh;
@@ -20,6 +20,17 @@
         .table {
             flex-direction: row;
             gap: 10px;
+            flex-wrap: wrap;
+        }
+        .card{
+            display: flex;
+            flex-direction: column;
+            background-color: blue;
+            width:45vw;
+            height : 70%;
+        }
+        .inv{
+            display: none;
         }
     </style>
 </head>
@@ -36,21 +47,25 @@
 
 
     </div>
-    <div>
-        <button id="submit">Submit</button>
-        <button id="locate">Start</button>
+    <div class="inpts">
+        <button id="submit">Search</button>
+        <button id="locate">Use Current location</button>
+        <div class="dropdown type">
+            <button class="dropdownBtn type" id="typeBtn">ANY</button>
+            <div class="optionsType inv">
+                <button id="any">ANY</button>
+                <button id="food">FOOD</button>
+                <button id="clothes">CLOTHES</button>
+                <button id="money">MONEY</button>
+            </div>
+        </div>
         <h1 id="place"></h1>
     </div>
     <div class="table">
-        <h1 id="ids">id : <br /> </h1>
-        <h1 id="addresses">address : <br /></h1>
-        <h1 id="organizations">organization : <br /> </h1>
-        <h1 id="latitudes">latitude : <br /></h1>
-        <h1 id="longitudes">longitude : <br /> </h1>
     </div>
 
     <script type="module">
-
+//firebase setup start
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
@@ -71,115 +86,187 @@
         import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const db = getDatabase();
+        // fire base setup end   
+
+
+
+//------------------------------------------------------------------------------------------------>>
+
+
+
+
+    var type=0;
+        function showDropOptions(){
+            document.querySelector(".optionsType").classList.toggle("inv");
+        }
+        function any(){
+            type=0;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="ANY";
+        }
+        function food(){
+            type=1;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="FOOD";
+        }
+        function clothes(){
+            type=2;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="CLOTHES";
+        }
+        function money(){
+            type=3;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="MONEY";
+        }
+        document.getElementById("typeBtn").addEventListener("click", showDropOptions);
+        document.getElementById("food").addEventListener("click", food);
+        document.getElementById("money").addEventListener("click", money);
+        document.getElementById("clothes").addEventListener("click", clothes);
+        document.getElementById("any").addEventListener("click", any);
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------>>>>
+
+
+
+        //to get location of user
+        function showCity(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            console.log(lat, long);
+            // Make a request to a Geocoding API (e.g. Google Maps Geocoding API)
+            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=5&appid=23487240e250933e64cd979430f95138`;
+            var city="";
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Parse the city name from the API response
+                    city = data[0].name;
+                    var dis=10;
+                    searchCityWithDistance(city, dis, lat, long);
+                    console.log(city);
+                    console.log(data[0]);
+                    document.getElementById('place').innerHTML = city;
+                })
+                .catch((error) => console.log(error));
+        }
+
 
         let SubmitBtn = document.getElementById("submit");
-
-        function save() {
-            var city = document.getElementById("city").value;
-            var id = document.getElementById("id").value;
-            var organization = document.getElementById("organization").value;
-            var address = document.getElementById("address").value;
-            var latitude = document.getElementById("latitude").value;
-            var longitude = document.getElementById("longitude").value;
-            set(ref(db, "city/" + city + "/" + "id" + id), {
-
-                organization: organization,
-                address: address,
-                latitude: latitude,
-                longitude: longitude,
-
-
-
-            }).then(() => {
-                alert("saved");
-                location.reload();
-
-            })
-                .catch((error) => {
-                    alert('error');
-                    console.log(error);
-                })
-        }
 
         const lula = (t, path) =>
             path.split(".").reduce((r, k) => r?.[k], t)
 
         function getData() {
             var city = document.getElementById("city").value;
-
+            city=city.slice(0,1).toUpperCase()+ city.slice(1).toLowerCase();
+            searchCity(city);
+        }
+        function searchCity(city){
+            document.querySelector(".table").innerHTML="";
             const dbRef = ref(db);
-
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
-
-                    for (var i = 0; i < Object.keys(snapshot.val()).length; i++) {
-                        document.getElementById("addresses").innerHTML += lula(snapshot.val(), `id${i + 1}.address`);
+                    for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
+                        
+                        var addr=lula(snapshot.val(), `id${i}.address`);
+                        console.log(addr);
+                            document.querySelector(".table").innerHTML += `
+                            <div class= "card">
+                                <h1>${addr}</h1> 
+                            </div>`;
                     }
 
                 }
                 else {
-                    alert("id does not exist");
+                    alert("No data available for this city");
                 }
             })
                 .catch((error) => {
-                    alert("error");
-                    console.log(error);
+                    alert("Error");
+                    console.log("Error in searchCity");
                 });
         }
-
-        function clearInput() {
-            var city = document.getElementById("city").value;
-            var id = document.getElementById("id").value;
-            var organization = document.getElementById("organization").value;
-            var address = document.getElementById("address").value;
-            var latitude = document.getElementById("latitude").value;
-            var longitude = document.getElementById("longitude").value;
-
-            city = "";
-            id = "";
-            organization = "";
-            address = "";
-            latitude = "";
-            longitude = "";
-        }
-
         SubmitBtn.addEventListener("click", getData);
 
-
-
-
-    </script>
-    <script>
         const start = document.querySelector('#locate');
 
         start.addEventListener("click", () => {
             navigator.geolocation.getCurrentPosition(showCity)
         })
 
-        // First, get the user's location coordinates using the Geolocation API
+    function searchCityWithDistance(city, maxDis, lat, long){
+            var dis=0;
+            document.querySelector(".table").innerHTML="";
+            const dbRef = ref(db);
+            get(child(dbRef, 'city/' + city)).then((snapshot) => {
+                console.log(snapshot.val());
+                if (snapshot.exists()) {
+                    for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
+                        console.log("Rec->->");
+                        console.log(snapshot.val());
+                        dis=getDistanceFromLatLonInKm(lat,long,lula(snapshot.val(), `id${i}.latitude`),lula(snapshot.val(), `id${i}.longitude`));
+                        console.log(city);
+                        console.log("DIS======"+dis);
+                        if(dis<=maxDis){
+                            console.log(snapshot.val());
+                                document.querySelector(".table").innerHTML += `
+                                <div class= "card">
+                                    <h1>Name: ${lula(snapshot.val(), `id${i}.name`)}</h1>
+                                    <h1>Address: ${lula(snapshot.val(), `id${i}.address`)}</h1>
+                                    <h1>${lula(snapshot.val(), `id${i}.address`)}</h1>
+                                </div>`; 
+                        }else {
+                            if(i==1 && lula(snapshot.val(), `id${i}.address`)!=undefined){
+                                dis=Math.floor(dis*100)/100;
+                                alert("No data in the given distance, closest available in "+dis+" km away");
+                        }   
+                        }
+                    }
+
+                }
+                else {
+                    alert("No data available for this city");
+                }
+            })
+                .catch((error) => {
+                    alert("Error");
+                    console.log("Error in searchCityWithDistance");
+                });
+    }  
+    
+//------------------------------------------------------------------------------------------>>
 
 
-        // Then, pass the location coordinates to a Geocoding API to get the city name
-        function showCity(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            console.log(latitude, longitude);
 
-            // Make a request to a Geocoding API (e.g. Google Maps Geocoding API)
-            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=5&appid=23487240e250933e64cd979430f95138`;
 
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    // Parse the city name from the API response
-                    const city = data[0].name;
+//to calculate distance using latitudes and longitudes    
 
-                    console.log(city);
-                    document.getElementById('place').innerHTML = city;
-                })
-                .catch((error) => console.log(error));
-        }
-    </script>
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+            ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        return d;
+}
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    } 
+
+
+
+
+
+</script>
 
 </body>
 
