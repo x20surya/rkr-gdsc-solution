@@ -22,14 +22,16 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-        .card{
+
+        .card {
             display: flex;
             flex-direction: column;
             background-color: blue;
-            width:45vw;
-            height : 70%;
+            width: 45vw;
+            height: 70%;
         }
-        .inv{
+
+        .inv {
             display: none;
         }
     </style>
@@ -65,7 +67,7 @@
     </div>
 
     <script type="module">
-//firebase setup start
+        //firebase setup start
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
@@ -90,34 +92,34 @@
 
 
 
-//------------------------------------------------------------------------------------------------>>
+        //------------------------------------------------------------------------------------------------>>
 
 
 
 
-    var type=0;
-        function showDropOptions(){
+        var type = 0;
+        function showDropOptions() {
             document.querySelector(".optionsType").classList.toggle("inv");
         }
-        function any(){
-            type=0;
+        function any() {
+            type = 0;
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="ANY";
+            document.getElementById("typeBtn").innerHTML = "ANY";
         }
-        function food(){
-            type=1;
+        function food() {
+            type = 1;
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="FOOD";
+            document.getElementById("typeBtn").innerHTML = "FOOD";
         }
-        function clothes(){
-            type=2;
+        function clothes() {
+            type = 2;
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="CLOTHES";
+            document.getElementById("typeBtn").innerHTML = "CLOTHES";
         }
-        function money(){
-            type=3;
+        function money() {
+            type = 3;
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="MONEY";
+            document.getElementById("typeBtn").innerHTML = "MONEY";
         }
         document.getElementById("typeBtn").addEventListener("click", showDropOptions);
         document.getElementById("food").addEventListener("click", food);
@@ -127,7 +129,7 @@
 
 
 
-//------------------------------------------------------------------------------------------------------------------------------>>>>
+        //------------------------------------------------------------------------------------------------------------------------------>>>>
 
 
 
@@ -137,14 +139,16 @@
             var long = position.coords.longitude;
             console.log(lat, long);
             // Make a request to a Geocoding API (e.g. Google Maps Geocoding API)
-            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=5&appid=23487240e250933e64cd979430f95138`;
-            var city="";
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyA4IGQAa3lWLh2jy1gRqEjybQ5aAqVDKcg`;
+            var city = "";
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
                     // Parse the city name from the API response
-                    city = data[0].name;
-                    var dis=10;
+                    city = data.results[0].address_components.find((component) =>
+                        component.types.includes("locality")
+                    ).long_name;
+                    var dis = 10;
                     searchCityWithDistance(city, dis, lat, long);
                     console.log(city);
                     console.log(data[0]);
@@ -161,19 +165,19 @@
 
         function getData() {
             var city = document.getElementById("city").value;
-            city=city.slice(0,1).toUpperCase()+ city.slice(1).toLowerCase();
+            city = city.slice(0, 1).toUpperCase() + city.slice(1).toLowerCase();
             searchCity(city);
         }
-        function searchCity(city){
-            document.querySelector(".table").innerHTML="";
+        function searchCity(city) {
+            document.querySelector(".table").innerHTML = "";
             const dbRef = ref(db);
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
                     for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
-                        
-                        var addr=lula(snapshot.val(), `id${i}.address`);
+
+                        var addr = lula(snapshot.val(), `id${i}.address`);
                         console.log(addr);
-                            document.querySelector(".table").innerHTML += `
+                        document.querySelector(".table").innerHTML += `
                             <div class= "card">
                                 <h1>${addr}</h1> 
                             </div>`;
@@ -197,9 +201,9 @@
             navigator.geolocation.getCurrentPosition(showCity)
         })
 
-    function searchCityWithDistance(city, maxDis, lat, long){
-            var dis=0;
-            document.querySelector(".table").innerHTML="";
+        function searchCityWithDistance(city, maxDis, lat, long) {
+            var dis = 0;
+            document.querySelector(".table").innerHTML = "";
             const dbRef = ref(db);
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 console.log(snapshot.val());
@@ -207,22 +211,22 @@
                     for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
                         console.log("Rec->->");
                         console.log(snapshot.val());
-                        dis=getDistanceFromLatLonInKm(lat,long,lula(snapshot.val(), `id${i}.latitude`),lula(snapshot.val(), `id${i}.longitude`));
+                        dis = getDistanceFromLatLonInKm(lat, long, lula(snapshot.val(), `id${i}.latitude`), lula(snapshot.val(), `id${i}.longitude`));
                         console.log(city);
-                        console.log("DIS======"+dis);
-                        if(dis<=maxDis){
+                        console.log("DIS======" + dis);
+                        if (dis <= maxDis) {
                             console.log(snapshot.val());
-                                document.querySelector(".table").innerHTML += `
+                            document.querySelector(".table").innerHTML += `
                                 <div class= "card">
                                     <h1>Name: ${lula(snapshot.val(), `id${i}.name`)}</h1>
                                     <h1>Address: ${lula(snapshot.val(), `id${i}.address`)}</h1>
                                     <h1>${lula(snapshot.val(), `id${i}.address`)}</h1>
-                                </div>`; 
-                        }else {
-                            if(i==1 && lula(snapshot.val(), `id${i}.address`)!=undefined){
-                                dis=Math.floor(dis*100)/100;
-                                alert("No data in the given distance, closest available in "+dis+" km away");
-                        }   
+                                </div>`;
+                        } else {
+                            if (i == 1 && lula(snapshot.val(), `id${i}.address`) != undefined) {
+                                dis = Math.floor(dis * 100) / 100;
+                                alert("No data in the given distance, closest available in " + dis + " km away");
+                            }
                         }
                     }
 
@@ -235,38 +239,38 @@
                     alert("Error");
                     console.log("Error in searchCityWithDistance");
                 });
-    }  
-    
-//------------------------------------------------------------------------------------------>>
+        }
+
+        //------------------------------------------------------------------------------------------>>
 
 
 
 
-//to calculate distance using latitudes and longitudes    
+        //to calculate distance using latitudes and longitudes    
 
-    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-        var R = 6371; // Radius of the earth in km
-        var dLat = deg2rad(lat2-lat1);  // deg2rad below
-        var dLon = deg2rad(lon2-lon1); 
-        var a = 
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-            Math.sin(dLon/2) * Math.sin(dLon/2)
-            ; 
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c; // Distance in km
-        return d;
-}
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+                ;
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
 
-    function deg2rad(deg) {
-        return deg * (Math.PI/180)
-    } 
-
-
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180)
+        }
 
 
 
-</script>
+
+
+    </script>
 
 </body>
 
