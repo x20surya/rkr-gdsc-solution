@@ -28,6 +28,8 @@
         <input placeholder="Address" type="address" id="address" />
         <input placeholder="Latitude" type="latitude" id="latitude" />
         <input placeholder="Longitude" type="longitude" id="longitude" />
+        <input placeholder="Name" type="name" id="name" />
+        <input placeholder="Type" type="type" id="type" />
 
 
     </div>
@@ -68,12 +70,16 @@
             var address = document.getElementById("address").value;
             var latitude = document.getElementById("latitude").value;
             var longitude = document.getElementById("longitude").value;
+            var type = document.getElementById("type").value;
+            var name = document.getElementById("name").value;
             set(ref(db, "city/" + city + "/" + "id" + id), {
 
                 organization: organization,
                 address: address,
                 latitude: latitude,
                 longitude: longitude,
+                type: type,
+                name: name,
 
 
 
