@@ -120,27 +120,27 @@
         let SubmitBtn = document.getElementById("submit");
 
 //-------------------------------------------------------------------------------------------------->>
-        var type=0;
+        var type="Food,Clothes & Money";
         function showDropOptions(){
             document.querySelector(".optionsType").classList.toggle("inv");
         }
         function any(){
-            type=0;
+            type="Food, Clothes & Money";
             document.querySelector(".optionsType").classList.toggle("inv");
             document.getElementById("typeBtn").innerHTML="ANY";
         }
         function food(){
-            type=1;
+            type="Food";
             document.querySelector(".optionsType").classList.toggle("inv");
             document.getElementById("typeBtn").innerHTML="FOOD";
         }
         function clothes(){
-            type=2;
+            type="Clothes";
             document.querySelector(".optionsType").classList.toggle("inv");
             document.getElementById("typeBtn").innerHTML="CLOTHES";
         }
         function money(){
-            type=3;
+            type="Money";
             document.querySelector(".optionsType").classList.toggle("inv");
             document.getElementById("typeBtn").innerHTML="MONEY";
         }
@@ -172,7 +172,6 @@
             
             var contact = document.getElementById("contact").value;
             var email = document.getElementById("email").value;
-            
             set(ref(db, "city/" + city + "/" + "id" + id), {
 
                 organization: organization,
