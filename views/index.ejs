@@ -49,7 +49,8 @@
             background-color: rgb(223, 249, 217);
             display: flex;
             margin: 0;
-            
+            align-items: center;
+
             box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
             position: fixed;
             width: 100%;
@@ -59,6 +60,8 @@
             left: 0%;
             
         }
+
+        
 
 
         .header img {
@@ -83,17 +86,44 @@
             padding-left: 50px;
 
         }
-        .mlink {
+        /* .mlink {
             width: 400px;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             padding-left: 80px;
+        } */
+
+        .mlink {
+            border: 2px solid transparent;
+            padding: 12px;
+             height: 60%;
+            background-color: rgb(125, 228, 125);
+            border-radius: 40px;
+            width: 100px;
+            text-align: center;
+            transition: background-color .4s ease-in-out;
+           
+
+        }
+
+        .mlink:hover {
+            border: 2px solid;
+
+            background-color: transparent;
+            color: rgb(28,206,28);
+            box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
+        }
+
+        .mlink:hover>a {
+            color: rgb(28,206,28);
         }
 
         .menu-buttons>a {
             text-decoration: none;
             color: rgb(39, 39, 39);
+            padding-top: 30px;
+            padding-bottom: 30px;
             font-size: 20px;
             height: 100%;
             width: 90px;
@@ -106,30 +136,27 @@
         }
 
         .mlink a {
-            background-color: rgb(125, 228, 125);
             font-size: 20px;
-            padding: 14px;
-            border-radius: 2rem;
             color: black;
         }
 
-        .mlink a:hover {
+         /* .mlink a:hover {
             border: 2px solid;
-
+             
             background-color: transparent;
-            color: rgb(28,206,28);
-        }
+             color: rgb(28,206,28); 
+        }  */
 
-        .mlink:hover>a {
+        /* .mlink:hover>a {
             color:   rgb(28,206,28);
-        }
+        } */ 
 
         .content {
             display: grid;
             grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
             grid-template-rows: 1fr 0.5fr 0.5fr 1fr;
             height: 80dvh;
-            margin-top: 150px;
+            margin-top: 15dvh;
             gap: 50px;
             margin-bottom: 200px;
         }
@@ -571,7 +598,7 @@
         <div class="menu-buttons">
             <a href="donate.ejs">Donate</a>
             <a href="">Blog</a>
-            <a href="suggest.ejs">Suggest</a>
+            <a href="./suggest.ejs">Suggest</a>
             <a href="#mshift">About</a>
         </div>
 
@@ -614,7 +641,7 @@
                         laudantium tenetur expedita inventore illum quia non obcaecati tempora autem, qui omnis quasi
                         facere necessitatibus, animi reiciendis.</p>
                     <div class="buttons">
-                        <a href="">Suggest now</a>
+                        <a href="./suggest.ejs">Suggest now</a>
                     </div>
                 </div>
             </div>
