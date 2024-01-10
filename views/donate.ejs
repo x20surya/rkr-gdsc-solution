@@ -12,7 +12,6 @@
         }
 
         body {
-            height: 100vh;
             display: grid;
             place-content: center;
         }
@@ -31,31 +30,33 @@
         .card {
             display: flex;
             flex-direction: column;
-            background-color: blue;
+            background-color: rgb(24, 250, 163);
             width: 45vw;
-            height: 70%;
+            height: fit-content;
+            padding: 2dvh 2vw;
+            border-radius: 2vw;
         }
 
         .inv {
             display: none;
         }
+        button,input{
+            width: 70vw;
+            text-align: center;
+        }
+        .content{
+            flex-direction: column;
+            align-items: center;
+        }
+
     </style>
     <script type="module" src="./index.js"></script>
 </head>
 
 <body>
 
-    <div>
+    <div class="content">
         <input placeholder="City" type="city" id="city" />
-        <!-- <input placeholder="Id" type="id" id="id" />
-        <input placeholder="Organization" type="organization" id="organization">
-        <input placeholder="Address" type="address" id="address" />
-        <input placeholder="Latitude" type="latitude" id="latitude" />
-        <input placeholder="Longitude" type="longitude" id="longitude" /> -->
-
-
-    </div>
-    <div class="inpts">
         <button id="submit">Search</button>
         <button id="locate">Use Current location</button>
         <div class="dropdown type">
@@ -172,7 +173,6 @@
                     searchCityWithDistance(city, dis, lat, long);
                     console.log(city);
                     console.log(data[0]);
-                    document.getElementById('place').innerHTML = city;
                 })
                 .catch((error) => console.log(error));
         }
@@ -191,6 +191,7 @@
         function searchCity(city) {
             document.querySelector(".table").innerHTML = "";
             const dbRef = ref(db);
+            document.getElementById('place').innerHTML = city;
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
                     for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
@@ -198,9 +199,12 @@
                         var addr = lula(snapshot.val(), `id${i}.address`);
                         console.log(addr);
                         document.querySelector(".table").innerHTML += `
-                            <div class= "card">
-                                <h1>${addr}</h1> 
-                            </div>`;
+                                <div class= "card">
+                                    <h1>Name: ${lula(snapshot.val(), `id${i}.name`)}</h1>
+                                    <h1>Address: ${lula(snapshot.val(), `id${i}.address`)}</h1>
+                                    <h1>Contact: ${lula(snapshot.val(), `id${i}.contact`)}</h1>
+                                    <h1>E-mail: ${lula(snapshot.val(), `id${i}.email`)}</h1>
+                                </div>`;
                     }
                     let map;
 
@@ -248,6 +252,7 @@
         })
 
         function searchCityWithDistance(city, maxDis, lat, long) {
+            document.getElementById('place').innerHTML = city;
             var dis = 0;
             document.querySelector(".table").innerHTML = "";
             const dbRef = ref(db);
@@ -266,7 +271,8 @@
                                 <div class= "card">
                                     <h1>Name: ${lula(snapshot.val(), `id${i}.name`)}</h1>
                                     <h1>Address: ${lula(snapshot.val(), `id${i}.address`)}</h1>
-                                    <h1>${lula(snapshot.val(), `id${i}.address`)}</h1>
+                                    <h1>Contact: ${lula(snapshot.val(), `id${i}.contact`)}</h1>
+                                    <h1>E-mail: ${lula(snapshot.val(), `id${i}.email`)}</h1>
                                 </div>`;
                         } else {
                             if (i == 1 && lula(snapshot.val(), `id${i}.address`) != undefined) {
