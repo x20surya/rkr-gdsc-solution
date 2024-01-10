@@ -6,36 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            height: 100vh;
-            display: grid;
-            place-content: center;
+        input{
+            height: 2vw;
+            text-align: center;
+            border: 0vw solid black;
+            border-radius: 0.5vw;
         }
+        body {
+            margin: 0;
 
-        div {
+        }
+        .header{
+            height:15dvh;
+            background-color: aquamarine;
+        }
+        .inv1{
+            display: none;
+            
+        }
+        .content{
+            background-color: aqua;
+            margin: 0 3vw;
+            border-radius:2vw ;
+        }
+        .inv{
             display: flex;
             flex-direction: column;
+            width: 8vw;
+        }
+        .content{
+            text-align: center;
+        }
+        .input{
+            display: flex;
+            justify-content: space-around;
         }
     </style>
 </head>
 
 <body>
-
-    <div>
-        <input placeholder="City" type="city" id="city" />
-        <input placeholder="Id" type="id" id="id" />
-        <input placeholder="Organization" type="organization" id="organization">
-        <input placeholder="Address" type="address" id="address" />
-        <input placeholder="Latitude" type="latitude" id="latitude" />
-        <input placeholder="Longitude" type="longitude" id="longitude" />
-        <input placeholder="Name" type="name" id="name" />
-        <input placeholder="Type" type="type" id="type" />
-        <input placeholder="Contact" type="contact" id="contact" />
-        <input placeholder="Email" type="email" id="email" />
-
+    <div class="header">
 
     </div>
-    <div>
+
+    <div class="content">
+        <h1>Suggest</h1>
+        <div class="input city">
+            <h1>Name of City:</h1>
+            <input placeholder="City" type="city" id="city" required/>
+        </div>
+        <div class="input name">
+            <h1>Name of Program:</h1>
+            <input placeholder="Name" type="name" id="name" required />
+        </div>
+        <div class="input organization">
+            <h1>Name of Associated Organization:</h1>
+            <input placeholder="Organization" type="organization" id="organization">
+        </div>
+        <div class="input address">
+            <h1>Address:</h1>
+            <input placeholder="Address" type="address" id="address" required/>
+        </div>
+        <div class="input position">
+            <input placeholder="Latitude" type="latitude" id="latitude" />
+            <input placeholder="Longitude" type="longitude" id="longitude" />
+        </div>
+        <div class="input donationType">
+            <h1></h1>
+            <div class="dropdown type">
+                <button class="dropdownBtn type" id="typeBtn">ANY</button>
+                <div class="optionsType inv1">
+                    <button id="any">ANY</button>
+                    <button id="food">FOOD</button>
+                    <button id="clothes">CLOTHES</button>
+                    <button id="money">MONEY</button>
+                </div>
+            </div>
+        </div>
+        <div class="input contactInfo">
+            <h1>Contact Information</h1>
+            <div>
+                <input placeholder="Contact" type="contact" id="contact" />
+                <input placeholder="Email" type="email" id="email" />
+            </div>
+        </div>
         <button id="submit">Submit</button>
     </div>
     <h1 id="data"></h1>
@@ -65,17 +119,60 @@
 
         let SubmitBtn = document.getElementById("submit");
 
-        function save() {
+//-------------------------------------------------------------------------------------------------->>
+        var type=0;
+        function showDropOptions(){
+            document.querySelector(".optionsType").classList.toggle("inv");
+        }
+        function any(){
+            type=0;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="ANY";
+        }
+        function food(){
+            type=1;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="FOOD";
+        }
+        function clothes(){
+            type=2;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="CLOTHES";
+        }
+        function money(){
+            type=3;
+            document.querySelector(".optionsType").classList.toggle("inv");
+            document.getElementById("typeBtn").innerHTML="MONEY";
+        }
+        document.getElementById("typeBtn").addEventListener("click", showDropOptions);
+        document.getElementById("food").addEventListener("click", food);
+        document.getElementById("money").addEventListener("click", money);
+        document.getElementById("clothes").addEventListener("click", clothes);
+        document.getElementById("any").addEventListener("click", any);
+
+
+//---------------------------------------------------------------------------------------------------------------------->>>>>>>>>>>
+
+
+        async function save() {
             var city = document.getElementById("city").value;
-            var id = document.getElementById("id").value;
+            city=firstCap(city);
+            var name = document.getElementById("name").value;
+            name=firstCap(name);
+            var x= await getData(city);
+            console.log(x);
+            var id = `id${x}`;
+            console.log(city+"   1   "+name+"    2  "+id+"   3  ");
             var organization = document.getElementById("organization").value;
+            organization=firstCap(organization);
             var address = document.getElementById("address").value;
+            address=firstCap(address);
             var latitude = document.getElementById("latitude").value;
             var longitude = document.getElementById("longitude").value;
-            var type = document.getElementById("type").value;
-            var name = document.getElementById("name").value;
+            
             var contact = document.getElementById("contact").value;
             var email = document.getElementById("email").value;
+            
             set(ref(db, "city/" + city + "/" + "id" + id), {
 
                 organization: organization,
@@ -91,7 +188,6 @@
 
             }).then(() => {
                 alert("saved");
-                location.reload();
                 
             })
                 .catch((error) => {
@@ -99,22 +195,18 @@
                     console.log(error);
                 })
         }
-
-        function getData() {
-            var city = document.getElementById("city").value;
-            var id = document.getElementById("id").value;
-            var organization = document.getElementById("organization").value;
-            var address = document.getElementById("address").value;
-            var latitude = document.getElementById("latitude").value;
-            var longitude = document.getElementById("longitude").value;
+        function getData(city) {
             const dbRef = ref(db);
-
-            get(child(dbRef, 'city/' + city + "/id" + id)).then((snapshot) => {
+            console.log(city);
+            get(child(dbRef, 'city/' + city)).then((snapshot) => {
+                console.log("---------------------");
                 if (snapshot.exists()) {
-                    document.getElementById("data").innerHTML = snapshot.val().latitude;
+                    console.log(Object.keys(snapshot.val()).length +1);
+                    return Object.keys(snapshot.val()).length +1;
                 }
                 else {
-                    alert("id does not exist");
+                    alert("new");
+                    return 1;
                 }
             })
                 .catch((error) => {
@@ -122,7 +214,9 @@
                     console.log(error);
                 });
         }
-       
+        function firstCap(city){
+            return city.slice(0,1).toUpperCase()+ city.slice(1).toLowerCase();;
+        }
         function clearInput(){
             var city = document.getElementById("city").value;
             var id = document.getElementById("id").value;
