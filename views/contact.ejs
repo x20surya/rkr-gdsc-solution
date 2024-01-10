@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        html {
+            scroll-behavior: smooth
+        }
+
+        @keyframes card {
+            from {
+                transform: translate3d(-10rem, 25rem, 0);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /*for chrome*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /*for firefox and edge*/
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header {
+            background-color: rgb(223, 249, 217);
+            display: flex;
+            margin: 0;
+
+            box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
+            position: fixed;
+            width: 100%;
+            z-index: 800;
+
+            top: 0%;
+            left: 0%;
+
+        }
+
+
+        .header img {
+            height: 60px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 10px;
+        }
+
+        .header img:hover {
+            cursor: pointer;
+        }
+
+        .menu-buttons {
+
+            width: 400px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            width: 60%;
+            padding-left: 50px;
+
+        }
+
+        .mlink {
+            width: 400px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-left: 80px;
+        }
+
+        .menu-buttons>a {
+            text-decoration: none;
+            color: rgb(39, 39, 39);
+            font-size: 20px;
+            height: 100%;
+            width: 90px;
+            display: grid;
+            place-content: center;
+        }
+
+        .menu-buttons>a:hover {
+            background-color: rgb(156, 223, 143);
+        }
+
+        .mlink a {
+            background-color: rgb(125, 228, 125);
+            font-size: 20px;
+            padding: 14px;
+            border-radius: 2rem;
+            color: black;
+        }
+
+        .mlink a:hover {
+            border: 2px solid;
+
+            background-color: transparent;
+            color: rgb(28, 206, 28);
+        }
+
+        .mlink:hover>a {
+            color: rgb(28, 206, 28);
+        }
+
+        .content {
+            display: flex;
+            align-self: center;
+            justify-content: center;
+
+            width: 80%;
+            height: 90vh;
+            margin-top: 100px;
+            background-color: #ddfec2;
+            margin-bottom: 100px;
+        }
+
+
+
+        .card {
+
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: fit-content;
+            padding-bottom: 10px;
+
+        }
+
+        .card:hover {
+            box-shadow: 10px 10px 10px 5px rgb(136, 136, 136);
+            transition-property: box-shadow;
+            transition-timing-function: ease-in-out;
+            transition-duration: .4s;
+        }
+
+        .donate {
+            grid-area: 1/1/3/4;
+            display: flex;
+            margin-left: 80px;
+
+        }
+
+        .suggest {
+            grid-area: 3/2/-1/-1;
+            text-align: right;
+            display: flex;
+            flex-direction: row-reverse;
+            margin-right: 80px;
+        }
+
+        /*for hover transition and content inside, change as you want*/
+        /*you can change border and background color and anyhting you want*/
+        .recent-donor {
+            opacity: 0;
+            transform: translate3d(-2rem, 0, 0);
+            transform: opacity, tranform;
+
+
+
+        }
+
+        .recent-suggestion {
+            opacity: 0;
+            transform: translate3d(2rem, 0, 0);
+            transition-property: opacity, transform;
+            text-align: left;
+
+        }
+
+        .donate:hover .recent-donor,
+        .suggest:hover .recent-suggestion {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .recent-donor,
+        .recent-suggestion {
+            transition-duration: 0.3s;
+            transition-timing-function: ease-in-out;
+
+        }
+
+        /*-----------*/
+
+        .card>div {
+
+            height: 94%;
+            width: 94.5%;
+            padding: 0.5vw 1vw;
+            border-radius: 2vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .suggest>.card>div {
+            align-items: end;
+        }
+
+        .card h2 {
+            color: rgb(90, 51, 0);
+            font-size: 50px;
+            line-height: 0vw;
+        }
+
+        .card p {
+            font-size: 17px;
+            line-height: 4dvh;
+            color: rgba(48, 27, 0, 0.829);
+        }
+
+        .card a {
+            color: white;
+            font-size: 2dvh;
+            margin-top: 0;
+            padding-top: 0;
+
+        }
+
+        .buttons {
+            border: 2px solid transparent;
+            padding: 12px;
+
+            background-color: #E84545;
+            border-radius: 40px;
+            width: 100px;
+            text-align: center;
+            transition: background-color .4s ease-in-out;
+
+        }
+
+        .buttons:hover {
+            border: 2px solid;
+
+            background-color: transparent;
+            color: #E84545;
+        }
+
+        .buttons:hover>a {
+            color: #E84545;
+        }
+
+        /*Loading Screen*/
+        .loader-container {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background-color: black;
+            display: grid;
+            place-content: center;
+            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+        }
+
+        .loader {
+            width: 4rem;
+            height: 4rem;
+            border: .4rem solid orange;
+            animation: .8s ease infinite alternate spinner;
+
+        }
+
+        @keyframes spinner {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .content {
+            opacity: 0;
+            transform: translate3d(0, -1rem, 0);
+            transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+        }
+
+        .content.visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .recent-suggestion>h1 {
+            text-align: right;
+            padding-right: 2vw;
+        }
+
+        .recent-donor {
+            text-align: left;
+            padding-left: 2vw;
+        }
+
+        .recent-donor>ul {
+            padding-left: 1vw;
+        }
+
+        .recent-suggestion>ul {
+            padding: 0;
+            text-align: end;
+            padding-right: 2vw;
+        }
+
+        .recent-donor,
+        .recent-suggestion {
+            color: rgb(88, 88, 88);
+        }
+
+        /*------------------------------*/
+
+
+        .mcontainer {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .m1 {
+            display: flex;
+            justify-content: space-around;
+            flex-basis: 1;
+            gap: 30px;
+            background-color: #ddfec2;
+            margin-left: 40px;
+            margin-right: 40px;
+            border-radius: 2rem;
+
+        }
+
+        .m11 {
+            width: 35%;
+        }
+
+        .m12 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+        }
+
+        .m12 img {
+            width: auto;
+        }
+
+        .m1 .m11 h2 {
+            display: inline-block;
+            font-size: 34px;
+            line-height: 35px;
+            /* background-color: rgb(132, 226, 132); */
+            padding: 6px;
+            /* border-radius: 1rem; */
+            border-bottom: 2px solid green;
+        }
+
+        .m1 .m11 p {
+            font-size: 17px;
+            text-align: justify;
+            opacity: 0.8;
+            line-height: 27px;
+            padding-bottom: 30px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .m1 .m11 .b {
+            padding-right: 20px;
+        }
+
+        .m1 .m12 .mi {
+            padding-right: 20px;
+        }
+
+
+        footer {
+            background-color: rgb(110, 235, 148);
+            padding-top: 20px;
+
+
+        }
+
+        .fimg {
+            width: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .fp {
+            width: auto;
+            display: flex;
+            justify-content: center;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .fp p {
+            text-align: center;
+            font-weight: 200;
+        }
+
+        .fcontainer {
+            width: auto;
+            display: flex;
+
+            margin: auto;
+            justify-content: space-around;
+            padding-top: 50px;
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 20px;
+            opacity: 0.8;
+            margin: 15px;
+            text-align: center;
+        }
+
+        .fcontent p {
+            width: 190px;
+            padding: 7px;
+            margin: auto;
+            text-align: center;
+
+
+
+        }
+
+        .flist {
+            padding: 0;
+        }
+
+        .fcontent li {
+            width: auto;
+            list-style-type: none;
+            text-align: center;
+            position: relative;
+            padding: 6px;
+        }
+
+        .flist li::before {
+            content: '';
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 100%;
+            width: 0;
+            height: 2px;
+            background: rgb(18, 198, 45);
+            transition-duration: 0.5s;
+        }
+
+        .flist li:hover::before {
+            width: 70px;
+        }
+
+
+
+        .fbottom {
+            background-color: rgb(33, 174, 52);
+            padding: 4px;
+            text-align: center;
+        }
+
+
+        @media(max-width:1100px) {
+            .donate {
+                grid-area: 1/1/3/-1;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .suggest {
+                grid-area: 3/1/-1/-1;
+                text-align: right;
+
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .recent-donor,
+            .recent-suggestion {
+                visibility: hidden;
+                width: 0;
+            }
+
+            .info h2 {
+                padding: 0;
+                font-size: 6vw;
+                color: rgb(70, 38, 0);
+            }
+
+            .info p,
+            .info ul {
+                padding: 0;
+                font-size: 3vw;
+                line-height: 4vw;
+            }
+
+            .info>* {
+                border-radius: 4vw;
+                border: 0.5vw dashed white;
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .card p {
+                padding-bottom: 0;
+                line-height: 3dvh;
+            }
+
+            /*do not change above this in media query*/
+            .minicard>h3 {
+                font-size: 5dvh;
+                padding-top: 4dvh;
+            }
+
+            .minicard>p {
+                font-size: 2.5dvh;
+                line-height: 4dvh;
+                padding: 1vw 1vw;
+            }
+
+            .minicard>a {
+                color: aliceblue;
+                font-size: 1.5vw;
+                width: 20dvh;
+                height: 6dvh;
+                background-color: rgb(0, 0, 0);
+                padding-top: 2dvh;
+            }
+        }
+
+        /* contact me form */
+        /* Style inputs with type="text", select elements and textareas */
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            /* Full width */
+            padding: 12px;
+            /* Some padding */
+            border: 1px solid #ccc;
+            /* Gray border */
+            border-radius: 4px;
+            /* Rounded borders */
+            box-sizing: border-box;
+            /* Make sure that padding and width stays in place */
+            margin-top: 6px;
+            /* Add a top margin */
+            margin-bottom: 16px;
+            /* Bottom margin */
+            resize: vertical
+                /* Allow the user to vertically resize the textarea (not horizontally) */
+        }
+
+        /* Style the submit button with a specific background color etc */
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* When moving the mouse over the submit button, add a darker green color */
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        /* Add a background color and some padding around the form */
+        .container {
+            border-radius: 5px;
+            background-color: transparent;
+            padding: 20px;
+        }
+        footer{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="loader-container">
+        <div class="loader">
+
+        </div>
+    </div>
+
+    <div class="header">
+
+        <a href="#top"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
+                alt="logo/name"></a>
+        <div class="menu-buttons">
+            <a href="donate.ejs">Donate</a>
+            <a href="">Blog</a>
+            <a href="suggest.ejs">Suggest</a>
+            <a href="#mshift">About</a>
+        </div>
+
+        <div class="mlink">
+            <a href="">Contact Us</a>
+        </div>
+        <!-- <div class="" -->
+
+    </div>
+    <div class="content">
+        <div class="container">
+            <form action="contact.ejs">
+
+                <label for="fname">Email</label>
+                <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+                <label for="lname">Subject</label>
+                <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+                <label for="subject">Message</label>
+                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+                <input type="submit" value="Submit">
+
+            </form>
+        </div>
+
+    </div>
+    <!--i put donate and suggest inside another div-->
+
+
+
+
+
+
+    <footer>
+        <div class="fimg"> <img src="../public/images/littlehelporg-high-resolution-logo-transparent.png" height="60">
+        </div>
+        <div class="fp">
+            <p>A fully trusted website to reduce poverty by knowing the nearest camps in any city. Go donote and
+                contribute to reduce poverty. </p>
+        </div>
+        <div class="fcontainer">
+            <div class="fcontent">
+                <h3>Quick Links</h3>
+                <ul class="flist">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Donors</a></li>
+                    <li><a href="">About us</a></li>
+                    <li><a href="">Contact us</a></li>
+
+
+                </ul>
+            </div>
+            <div class="fcontent">
+                <h3>Contact Us</h3>
+                <p>Address: street fjif rhfofvuhgjd f ghd f </p>
+                <p>Email: example@gmail.com</p>
+                <p>Phone: +91 5823995988</p>
+            </div>
+            <div class="fcontent">
+                <h3>Our Team</h3>
+                <p>Suryanshu</p>
+                <p>Aakrisht</p>
+                <p>Utkarsh</p>
+                <p>Nayan</p>
+            </div>
+        </div>
+        <div class="fbottom">
+            <p>&copy; 2024 littlehelp.org . All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const loaderContainer = document.querySelector('.loader-container');
+        const content = document.querySelector('.content');
+        window.addEventListener('load', () => {
+            loaderContainer.classList.add('hidden');
+            content.classList.add('visible');
+
+        });
+
+
+    </script>
+</body>
+
+</html>
