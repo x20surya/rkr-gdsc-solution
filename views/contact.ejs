@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         html {
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
         }
 
         @keyframes card {
@@ -28,6 +31,21 @@
 
         a {
             text-decoration: none;
+            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Lilita One', sans-serif;
+            font-weight: lighter;
+        }
+
+        p {
+            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
         }
 
         /*for chrome*/
@@ -43,16 +61,14 @@
 
         body {
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
         }
 
         .header {
             background-color: rgb(223, 249, 217);
             display: flex;
             margin: 0;
+            align-items: center;
+            justify-content: space-between;
 
             box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
             position: fixed;
@@ -61,9 +77,7 @@
 
             top: 0%;
             left: 0%;
-
         }
-
 
         .header img {
             height: 60px;
@@ -78,94 +92,110 @@
         }
 
         .menu-buttons {
-
-            width: 400px;
             display: flex;
-            gap: 40px;
             align-items: center;
-            width: 60%;
-            padding-left: 50px;
-
+            justify-content: space-around;
+            margin-right: 30px;
         }
 
-        .mlink {
+        /* .mlink {
             width: 400px;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
             padding-left: 80px;
-        }
+        } */
 
-        .menu-buttons>a {
-            text-decoration: none;
-            color: rgb(39, 39, 39);
-            font-size: 20px;
-            height: 100%;
-            width: 90px;
-            display: grid;
-            place-content: center;
-        }
-
-        .menu-buttons>a:hover {
-            background-color: rgb(156, 223, 143);
-        }
-
-        .mlink a {
+        .mlink {
+            border: 2px solid transparent;
+            padding: 12px;
+            height: 60%;
             background-color: rgb(125, 228, 125);
-            font-size: 20px;
-            padding: 14px;
-            border-radius: 2rem;
-            color: black;
+            border-radius: 40px;
+            width: 130px;
+            text-align: center;
+            transition: background-color 0.4s ease-in-out;
         }
 
-        .mlink a:hover {
+        .mlink:hover {
             border: 2px solid;
 
             background-color: transparent;
             color: rgb(28, 206, 28);
+            box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
         }
 
         .mlink:hover>a {
             color: rgb(28, 206, 28);
         }
 
-        .content {
-            display: flex;
-            align-self: center;
-            justify-content: center;
+        .menu-buttons>a {
+            text-decoration: none;
+            color: rgb(39, 39, 39);
 
-            width: 80%;
-            height: 90vh;
-            margin-top: 100px;
-            background-color: #ddfec2;
-            margin-bottom: 100px;
+            font-size: 20px;
+
+            width: 90px;
+
+        }
+
+        .menu-buttons>a:hover {
+            color: green;
+        }
+
+        .d1 {
+            display: none;
+            margin-right: 30px;
+            cursor: pointer;
         }
 
 
+        .mlink a {
+            font-size: 20px;
+            color: black;
+        }
+
+        /* .mlink a:hover {
+            border: 2px solid;
+             
+            background-color: transparent;
+             color: rgb(28,206,28); 
+        }  */
+
+        /* .mlink:hover>a {
+            color:   rgb(28,206,28);
+        } */
+
+        .content {
+            display: grid;
+            place-content: center;
+            height: fit-content;
+            margin-top: 15dvh;
+            gap: 50px;
+            margin-bottom: 50px;
+            width: 100%;
+            
+        }
 
         .card {
-
-
             display: flex;
             justify-content: space-around;
             align-items: center;
             height: fit-content;
             padding-bottom: 10px;
-
         }
 
         .card:hover {
             box-shadow: 10px 10px 10px 5px rgb(136, 136, 136);
             transition-property: box-shadow;
             transition-timing-function: ease-in-out;
-            transition-duration: .4s;
+            transition-duration: 0.4s;
         }
 
         .donate {
             grid-area: 1/1/3/4;
             display: flex;
             margin-left: 80px;
-
         }
 
         .suggest {
@@ -182,9 +212,6 @@
             opacity: 0;
             transform: translate3d(-2rem, 0, 0);
             transform: opacity, tranform;
-
-
-
         }
 
         .recent-suggestion {
@@ -192,7 +219,6 @@
             transform: translate3d(2rem, 0, 0);
             transition-property: opacity, transform;
             text-align: left;
-
         }
 
         .donate:hover .recent-donor,
@@ -205,13 +231,11 @@
         .recent-suggestion {
             transition-duration: 0.3s;
             transition-timing-function: ease-in-out;
-
         }
 
         /*-----------*/
 
         .card>div {
-
             height: 94%;
             width: 94.5%;
             padding: 0.5vw 1vw;
@@ -242,30 +266,28 @@
             font-size: 2dvh;
             margin-top: 0;
             padding-top: 0;
-
         }
 
         .buttons {
             border: 2px solid transparent;
             padding: 12px;
 
-            background-color: #E84545;
+            background-color: #e84545;
             border-radius: 40px;
-            width: 100px;
+            width: 130px;
             text-align: center;
-            transition: background-color .4s ease-in-out;
-
+            transition: background-color 0.4s ease-in-out;
         }
 
         .buttons:hover {
             border: 2px solid;
 
             background-color: transparent;
-            color: #E84545;
+            color: #e84545;
         }
 
         .buttons:hover>a {
-            color: #E84545;
+            color: #e84545;
         }
 
         /*Loading Screen*/
@@ -276,15 +298,16 @@
             background-color: black;
             display: grid;
             place-content: center;
-            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
         }
 
         .loader {
             width: 4rem;
             height: 4rem;
-            border: .4rem solid orange;
-            animation: .8s ease infinite alternate spinner;
 
+            border: 0.4rem solid rgb(214, 255, 152);
+            border-radius: 40%;
+            animation: 0.8s ease infinite alternate spinner;
         }
 
         @keyframes spinner {
@@ -305,7 +328,7 @@
         .content {
             opacity: 0;
             transform: translate3d(0, -1rem, 0);
-            transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
         }
 
         .content.visible {
@@ -340,7 +363,6 @@
 
         /*------------------------------*/
 
-
         .mcontainer {
             display: flex;
             flex-direction: column;
@@ -358,7 +380,6 @@
             margin-left: 40px;
             margin-right: 40px;
             border-radius: 2rem;
-
         }
 
         .m11 {
@@ -392,7 +413,8 @@
             opacity: 0.8;
             line-height: 27px;
             padding-bottom: 30px;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
         }
 
         .m1 .m11 .b {
@@ -403,12 +425,9 @@
             padding-right: 20px;
         }
 
-
         footer {
             background-color: rgb(110, 235, 148);
             padding-top: 20px;
-
-
         }
 
         .fimg {
@@ -437,7 +456,6 @@
             margin: auto;
             justify-content: space-around;
             padding-top: 50px;
-            width: 100%;
         }
 
         h3 {
@@ -452,9 +470,6 @@
             padding: 7px;
             margin: auto;
             text-align: center;
-
-
-
         }
 
         .flist {
@@ -470,7 +485,7 @@
         }
 
         .flist li::before {
-            content: '';
+            content: "";
             position: absolute;
             transform: translate(-50%, -50%);
             left: 50%;
@@ -485,8 +500,6 @@
             width: 70px;
         }
 
-
-
         .fbottom {
             background-color: rgb(33, 174, 52);
             padding: 4px;
@@ -494,7 +507,9 @@
         }
 
 
-        @media(max-width:1100px) {
+
+        @media (max-width: 1100px) {
+
             .donate {
                 grid-area: 1/1/3/-1;
                 margin-left: 0;
@@ -562,6 +577,98 @@
                 background-color: rgb(0, 0, 0);
                 padding-top: 2dvh;
             }
+
+            .m12 {
+                display: none;
+            }
+
+            .m11 {
+                width: auto;
+                padding: 20px;
+            }
+
+            .mc {
+                background-color: #bdef95;
+            }
+
+            .fcontainer {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 20px;
+            }
+
+            .menu-buttons {
+                width: 0;
+                display: none;
+            }
+
+            .d1 {
+                display: block;
+            }
+
+            /* Dropdown Button */
+            .dropbtn {
+                background-color: transparent;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+
+            /* Dropdown button on hover & focus */
+
+
+            /* The container <div> - needed to position the dropdown content */
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            /* Dropdown Content (Hidden by Default) */
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                right: 10%;
+                background-color: #f1f1f1;
+                width: auto;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .mlink {
+                display: none;
+            }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+            /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .fcontainer {
+                flex-direction: column;
+            }
+
+            .fcontent {
+                border-top: 2px solid rgb(25, 156, 25);
+            }
         }
 
         /* contact me form */
@@ -604,11 +711,13 @@
 
         /* Add a background color and some padding around the form */
         .container {
+            width: 70%;
             border-radius: 5px;
             background-color: transparent;
             padding: 20px;
         }
-        footer{
+
+        footer {
             width: 100%;
         }
     </style>
@@ -623,21 +732,31 @@
     </div>
 
     <div class="header">
-
         <a href="#top"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
-                alt="logo/name"></a>
-        <div class="menu-buttons">
-            <a href="donate.ejs">Donate</a>
-            <a href="">Blog</a>
-            <a href="suggest.ejs">Suggest</a>
-            <a href="#mshift">About</a>
+                alt="logo/name" /></a>
+        <div class="dropdown">
+            <button class="dropbtn d1" onclick="myFunction()">
+                <svg class="dd" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="40"
+                    viewBox="0 0 50 50">
+                    <path
+                        d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 L 0 7.5 z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 L 0 22.5 z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 L 0 37.5 z">
+                    </path>
+                </svg>
+            </button>
+            <div class="menu-buttons dropdown-content" id="myDropdown">
+
+                <a href="donate.ejs">Donate</a>
+                <a href="">Blog</a>
+                <a href="./suggest.ejs">Suggest</a>
+                <a href="#mshift">About</a>
+                <div class="mlink">
+                    <a href="">Contact Us</a>
+                </div>
+            </div>
         </div>
 
-        <div class="mlink">
-            <a href="">Contact Us</a>
-        </div>
+
         <!-- <div class="" -->
-
     </div>
     <div class="content">
         <div class="container">
@@ -710,6 +829,27 @@
             content.classList.add('visible');
 
         });
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+
+        }
+        document.getElementsByClassName("dd").addEventListener("click", myFunction);
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
 
     </script>
