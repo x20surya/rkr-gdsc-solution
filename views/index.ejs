@@ -1,92 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <style>
-        html {
-            scroll-behavior: smooth
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes card {
+        from {
+          transform: translate3d(-10rem, 25rem, 0);
+          opacity: 0;
         }
 
-        @keyframes card {
-            from {
-                transform: translate3d(-10rem, 25rem, 0);
-                opacity: 0;
-            }
-
-            to {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
+        to {
+          transform: translate3d(0, 0, 0);
+          opacity: 1;
         }
+      }
 
-        ul {
-            list-style: none;
-        }
+      ul {
+        list-style: none;
+      }
 
-        a {
-            text-decoration: none;
-        }
+      a {
+        text-decoration: none;
+      }
 
-        /*for chrome*/
-        body::-webkit-scrollbar {
-            display: none;
-        }
+      /*for chrome*/
+      body::-webkit-scrollbar {
+        display: none;
+      }
 
-        /*for firefox and edge*/
-        body {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+      /*for firefox and edge*/
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
 
-        body {
-            margin: 0;
-        }
+      body {
+        margin: 0;
+      }
 
-          .header {
-            background-color: rgb(223, 249, 217);
-            display: flex;
-            margin: 0;
-            align-items: center;
+      .header {
+        background-color: rgb(223, 249, 217);
+        display: flex;
+        margin: 0;
+        align-items: center;
 
-            box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
-            position: fixed;
-            width: 100%;
-            z-index: 800;
-            
-            top: 0%;
-            left: 0%;
-            
-        }
+        box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
+        position: fixed;
+        width: 100%;
+        z-index: 800;
 
-        
+        top: 0%;
+        left: 0%;
+      }
 
+      .header img {
+        height: 60px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 30px;
+        padding-right: 10px;
+      }
 
-        .header img {
-            height: 60px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding-left: 30px;
-            padding-right: 10px;
-        }
+      .header img:hover {
+        cursor: pointer;
+      }
 
-        .header img:hover {
-            cursor: pointer;
-        }
-
-        .menu-buttons {
-
-            width: 400px;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            width: 60%;
-            padding-left: 50px;
-
-        }
-        /* .mlink {
+      .menu-buttons {
+        width: 400px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        width: 60%;
+        padding-left: 50px;
+      }
+      /* .mlink {
             width: 400px;
             display: flex;
             justify-content: center;
@@ -94,704 +87,733 @@
             padding-left: 80px;
         } */
 
-        .mlink {
-            border: 2px solid transparent;
-            padding: 12px;
-             height: 60%;
-            background-color: rgb(125, 228, 125);
-            border-radius: 40px;
-            width: 100px;
-            text-align: center;
-            transition: background-color .4s ease-in-out;
-           
+      .mlink {
+        border: 2px solid transparent;
+        padding: 12px;
+        height: 60%;
+        background-color: rgb(125, 228, 125);
+        border-radius: 40px;
+        width: 100px;
+        text-align: center;
+        transition: background-color 0.4s ease-in-out;
+      }
 
-        }
+      .mlink:hover {
+        border: 2px solid;
 
-        .mlink:hover {
-            border: 2px solid;
+        background-color: transparent;
+        color: rgb(28, 206, 28);
+        box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
+      }
 
-            background-color: transparent;
-            color: rgb(28,206,28);
-            box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
-        }
+      .mlink:hover > a {
+        color: rgb(28, 206, 28);
+      }
 
-        .mlink:hover>a {
-            color: rgb(28,206,28);
-        }
+      .menu-buttons > a {
+        text-decoration: none;
+        color: rgb(39, 39, 39);
+        padding-top: 30px;
+        padding-bottom: 30px;
+        font-size: 20px;
+        height: 100%;
+        width: 90px;
+        display: grid;
+        place-content: center;
+      }
 
-        .menu-buttons>a {
-            text-decoration: none;
-            color: rgb(39, 39, 39);
-            padding-top: 30px;
-            padding-bottom: 30px;
-            font-size: 20px;
-            height: 100%;
-            width: 90px;
-            display: grid;
-            place-content: center;
-        }
+      .menu-buttons > a:hover {
+        background-color: rgb(156, 223, 143);
+      }
+     
 
-        .menu-buttons>a:hover {
-            background-color: rgb(156, 223, 143);
-        }
+      .mlink a {
+        font-size: 20px;
+        color: black;
+      }
 
-        .mlink a {
-            font-size: 20px;
-            color: black;
-        }
-
-         /* .mlink a:hover {
+      /* .mlink a:hover {
             border: 2px solid;
              
             background-color: transparent;
              color: rgb(28,206,28); 
         }  */
 
-        /* .mlink:hover>a {
+      /* .mlink:hover>a {
             color:   rgb(28,206,28);
-        } */ 
+        } */
 
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
-            grid-template-rows: 1fr 0.5fr 0.5fr 1fr;
-            height: 80dvh;
-            margin-top: 15dvh;
-            gap: 50px;
-            margin-bottom: 200px;
+      .content {
+        display: grid;
+        grid-template-columns: 1fr 0.5fr 0.5fr 1fr;
+        grid-template-rows: 1fr 0.5fr 0.5fr 1fr;
+        height: 80dvh;
+        margin-top: 15dvh;
+        gap: 50px;
+        margin-bottom: 200px;
+      }
+
+      .card {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: fit-content;
+        padding-bottom: 10px;
+      }
+
+      .card:hover {
+        box-shadow: 10px 10px 10px 5px rgb(136, 136, 136);
+        transition-property: box-shadow;
+        transition-timing-function: ease-in-out;
+        transition-duration: 0.4s;
+      }
+
+      .donate {
+        grid-area: 1/1/3/4;
+        display: flex;
+        margin-left: 80px;
+      }
+
+      .suggest {
+        grid-area: 3/2/-1/-1;
+        text-align: right;
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 80px;
+      }
+
+      /*for hover transition and content inside, change as you want*/
+      /*you can change border and background color and anyhting you want*/
+      .recent-donor {
+        opacity: 0;
+        transform: translate3d(-2rem, 0, 0);
+        transform: opacity, tranform;
+      }
+
+      .recent-suggestion {
+        opacity: 0;
+        transform: translate3d(2rem, 0, 0);
+        transition-property: opacity, transform;
+        text-align: left;
+      }
+
+      .donate:hover .recent-donor,
+      .suggest:hover .recent-suggestion {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .recent-donor,
+      .recent-suggestion {
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+      }
+
+      /*-----------*/
+
+      .card > div {
+        height: 94%;
+        width: 94.5%;
+        padding: 0.5vw 1vw;
+        border-radius: 2vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+
+      .suggest > .card > div {
+        align-items: end;
+      }
+
+      .card h2 {
+        color: rgb(90, 51, 0);
+        font-size: 50px;
+        line-height: 0vw;
+      }
+
+      .card p {
+        font-size: 17px;
+        line-height: 4dvh;
+        color: rgba(48, 27, 0, 0.829);
+      }
+
+      .card a {
+        color: white;
+        font-size: 2dvh;
+        margin-top: 0;
+        padding-top: 0;
+      }
+
+      .buttons {
+        border: 2px solid transparent;
+        padding: 12px;
+
+        background-color: #e84545;
+        border-radius: 40px;
+        width: 100px;
+        text-align: center;
+        transition: background-color 0.4s ease-in-out;
+      }
+
+      .buttons:hover {
+        border: 2px solid;
+
+        background-color: transparent;
+        color: #e84545;
+      }
+
+      .buttons:hover > a {
+        color: #e84545;
+      }
+
+      /*Loading Screen*/
+      .loader-container {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background-color: black;
+        display: grid;
+        place-content: center;
+        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+      }
+
+      .loader {
+        width: 4rem;
+        height: 4rem;
+        border: 0.4rem solid orange;
+        animation: 0.8s ease infinite alternate spinner;
+      }
+
+      @keyframes spinner {
+        from {
+          transform: rotate(0deg);
         }
 
-        .card {
-
-
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: fit-content;
-            padding-bottom: 10px;
-
+        to {
+          transform: rotate(1turn);
         }
+      }
 
-        .card:hover {
-            box-shadow: 10px 10px 10px 5px rgb(136, 136, 136);
-            transition-property: box-shadow;
-            transition-timing-function: ease-in-out;
-            transition-duration: .4s;
-        }
+      .loader-container.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
 
+      .content {
+        opacity: 0;
+        transform: translate3d(0, -1rem, 0);
+        transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+      }
+
+      .content.visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .recent-suggestion > h1 {
+        text-align: right;
+        padding-right: 2vw;
+      }
+
+      .recent-donor {
+        text-align: left;
+        padding-left: 2vw;
+      }
+
+      .recent-donor > ul {
+        padding-left: 1vw;
+      }
+
+      .recent-suggestion > ul {
+        padding: 0;
+        text-align: end;
+        padding-right: 2vw;
+      }
+
+      .recent-donor,
+      .recent-suggestion {
+        color: rgb(88, 88, 88);
+      }
+
+      /*------------------------------*/
+
+      .mcontainer {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+
+      .m1 {
+        display: flex;
+        justify-content: space-around;
+        flex-basis: 1;
+        gap: 30px;
+        background-color: #ddfec2;
+        margin-left: 40px;
+        margin-right: 40px;
+        border-radius: 2rem;
+      }
+
+      .m11 {
+        width: 35%;
+      }
+
+      .m12 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+      }
+
+      .m12 img {
+        width: auto;
+      }
+
+      .m1 .m11 h2 {
+        display: inline-block;
+        font-size: 34px;
+        line-height: 35px;
+        /* background-color: rgb(132, 226, 132); */
+        padding: 6px;
+        /* border-radius: 1rem; */
+        border-bottom: 2px solid green;
+      }
+
+      .m1 .m11 p {
+        font-size: 17px;
+        text-align: justify;
+        opacity: 0.8;
+        line-height: 27px;
+        padding-bottom: 30px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+
+      .m1 .m11 .b {
+        padding-right: 20px;
+      }
+
+      .m1 .m12 .mi {
+        padding-right: 20px;
+      }
+
+      footer {
+        background-color: rgb(110, 235, 148);
+        padding-top: 20px;
+      }
+
+      .fimg {
+        width: auto;
+        display: flex;
+        justify-content: center;
+      }
+
+      .fp {
+        width: auto;
+        display: flex;
+        justify-content: center;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+
+      .fp p {
+        text-align: center;
+        font-weight: 200;
+      }
+
+      .fcontainer {
+        width: auto;
+        display: flex;
+
+        margin: auto;
+        justify-content: space-around;
+        padding-top: 50px;
+      }
+
+      h3 {
+        font-size: 20px;
+        opacity: 0.8;
+        margin: 15px;
+        text-align: center;
+      }
+
+      .fcontent p {
+        width: 190px;
+        padding: 7px;
+        margin: auto;
+        text-align: center;
+      }
+
+      .flist {
+        padding: 0;
+      }
+
+      .fcontent li {
+        width: auto;
+        list-style-type: none;
+        text-align: center;
+        position: relative;
+        padding: 6px;
+      }
+
+      .flist li::before {
+        content: "";
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 100%;
+        width: 0;
+        height: 2px;
+        background: rgb(18, 198, 45);
+        transition-duration: 0.5s;
+      }
+
+      .flist li:hover::before {
+        width: 70px;
+      }
+
+      .fbottom {
+        background-color: rgb(33, 174, 52);
+        padding: 4px;
+        text-align: center;
+      }
+
+      
+
+      @media (max-width: 1100px) {
         .donate {
-            grid-area: 1/1/3/4;
-            display: flex;
-            margin-left: 80px;
-            
+          grid-area: 1/1/3/-1;
+          margin-left: 0;
+          margin-right: 0;
         }
 
         .suggest {
-            grid-area: 3/2/-1/-1;
-            text-align: right;
-            display: flex;
-            flex-direction: row-reverse;
-            margin-right: 80px;
-        }
+          grid-area: 3/1/-1/-1;
+          text-align: right;
 
-        /*for hover transition and content inside, change as you want*/
-        /*you can change border and background color and anyhting you want*/
-        .recent-donor {
-            opacity: 0;
-            transform: translate3d(-2rem, 0, 0);
-            transform: opacity, tranform;
-
-
-
-        }
-
-        .recent-suggestion {
-            opacity: 0;
-            transform: translate3d(2rem, 0, 0);
-            transition-property: opacity, transform;
-            text-align: left;
-
-        }
-
-        .donate:hover .recent-donor,
-        .suggest:hover .recent-suggestion {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
+          margin-left: 0;
+          margin-right: 0;
         }
 
         .recent-donor,
         .recent-suggestion {
-            transition-duration: 0.3s;
-            transition-timing-function: ease-in-out;
-
+          visibility: hidden;
+          width: 0;
         }
 
-        /*-----------*/
-
-        .card>div {
-
-            height: 94%;
-            width: 94.5%;
-            padding: 0.5vw 1vw;
-            border-radius: 2vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+        .info h2 {
+          padding: 0;
+          font-size: 6vw;
+          color: rgb(70, 38, 0);
         }
 
-        .suggest>.card>div {
-            align-items: end;
+        .info p,
+        .info ul {
+          padding: 0;
+          font-size: 3vw;
+          line-height: 4vw;
         }
 
-        .card h2 {
-            color: rgb(90, 51, 0);
-            font-size: 50px;
-            line-height: 0vw;
+        .info > * {
+          border-radius: 4vw;
+          border: 0.5vw dashed white;
+        }
+
+        body {
+          overflow-x: hidden;
         }
 
         .card p {
-            font-size: 17px;
-            line-height: 4dvh;
-            color: rgba(48, 27, 0, 0.829);
+          padding-bottom: 0;
+          line-height: 3dvh;
         }
 
-        .card a {
-            color: white;
-            font-size: 2dvh;
-            margin-top: 0;
-            padding-top: 0;
-
+        /*do not change above this in media query*/
+        .minicard > h3 {
+          font-size: 5dvh;
+          padding-top: 4dvh;
         }
 
-        .buttons {
-            border: 2px solid transparent;
-            padding: 12px;
-
-            background-color: #E84545;
-            border-radius: 40px;
-            width: 100px;
-            text-align: center;
-            transition: background-color .4s ease-in-out;
-
+        .minicard > p {
+          font-size: 2.5dvh;
+          line-height: 4dvh;
+          padding: 1vw 1vw;
         }
 
-        .buttons:hover {
-            border: 2px solid;
-
-            background-color: transparent;
-            color: #E84545;
+        .minicard > a {
+          color: aliceblue;
+          font-size: 1.5vw;
+          width: 20dvh;
+          height: 6dvh;
+          background-color: rgb(0, 0, 0);
+          padding-top: 2dvh;
         }
-
-        .buttons:hover>a {
-            color: #E84545;
-        }
-
-        /*Loading Screen*/
-        .loader-container {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background-color: black;
-            display: grid;
-            place-content: center;
-            transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
-        }
-
-        .loader {
-            width: 4rem;
-            height: 4rem;
-            border: .4rem solid orange;
-            animation: .8s ease infinite alternate spinner;
-
-        }
-
-        @keyframes spinner {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(1turn);
-            }
-        }
-
-        .loader-container.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .content {
-            opacity: 0;
-            transform: translate3d(0, -1rem, 0);
-            transition: opacity .6s ease-in-out, transform .6s ease-in-out;
-        }
-
-        .content.visible {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-        }
-
-        .recent-suggestion>h1 {
-            text-align: right;
-            padding-right: 2vw;
-        }
-
-        .recent-donor {
-            text-align: left;
-            padding-left: 2vw;
-        }
-
-        .recent-donor>ul {
-            padding-left: 1vw;
-        }
-
-        .recent-suggestion>ul {
-            padding: 0;
-            text-align: end;
-            padding-right: 2vw;
-        }
-
-        .recent-donor,
-        .recent-suggestion {
-            color: rgb(88, 88, 88);
-        }
-
-        /*------------------------------*/
-
-
-        .mcontainer {
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-
-        .m1 {
-            display: flex;
-            justify-content: space-around;
-            flex-basis: 1;
-            gap: 30px;
-            background-color: #ddfec2;
-            margin-left: 40px;
-            margin-right: 40px;
-            border-radius: 2rem;
-
-        }
-
-        .m11 {
-            width: 35%;
-        }
-
         .m12 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: auto;
+          display: none;
         }
-
-        .m12 img {
-            width: auto;
+        .m11 {
+          width: auto;
+          padding: 20px;
         }
-
-        .m1 .m11 h2 {
-            display: inline-block;
-            font-size: 34px;
-            line-height: 35px;
-            /* background-color: rgb(132, 226, 132); */
-            padding: 6px;
-            /* border-radius: 1rem; */
-            border-bottom: 2px solid green;
-        }
-
-        .m1 .m11 p {
-            font-size: 17px;
-            text-align: justify;
-            opacity: 0.8;
-            line-height: 27px;
-            padding-bottom: 30px;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-
-        .m1 .m11 .b {
-            padding-right: 20px;
-        }
-
-        .m1 .m12 .mi {
-            padding-right: 20px;
-        }
-
-
-        footer {
-            background-color: rgb(110, 235, 148);
-            padding-top: 20px;
-
-
-        }
-
-        .fimg {
-            width: auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        .fp {
-            width: auto;
-            display: flex;
-            justify-content: center;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-
-        .fp p {
-            text-align: center;
-            font-weight: 200;
+        .mc {
+          background-color: #bdef95;
         }
 
         .fcontainer {
-            width: auto;
-            display: flex;
-
-            margin: auto;
-            justify-content: space-around;
-            padding-top: 50px;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          gap: 20px;
         }
+      }
 
-        h3 {
-            font-size: 20px;
-            opacity: 0.8;
-            margin: 15px;
-            text-align: center;
+      @media (max-width: 600px) {
+        .fcontainer {
+          flex-direction: column;
         }
-
-        .fcontent p {
-            width: 190px;
-            padding: 7px;
-            margin: auto;
-            text-align: center;
-
-
-
+        .fcontent {
+          border-top: 2px solid rgb(25, 156, 25);
         }
-
-        .flist {
-            padding: 0;
-        }
-
-        .fcontent li {
-            width: auto;
-            list-style-type: none;
-            text-align: center;
-            position: relative;
-            padding: 6px;
-        }
-
-        .flist li::before {
-            content: '';
-            position: absolute;
-            transform: translate(-50%, -50%);
-            left: 50%;
-            top: 100%;
-            width: 0;
-            height: 2px;
-            background: rgb(18, 198, 45);
-            transition-duration: 0.5s;
-        }
-
-        .flist li:hover::before {
-            width: 70px;
-        }
-
-
-
-        .fbottom {
-            background-color: rgb(33, 174, 52);
-            padding: 4px;
-            text-align: center;
-        }
-
-
-        @media(max-width:1100px) {
-            .donate {
-                grid-area: 1/1/3/-1;
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .suggest {
-                grid-area: 3/1/-1/-1;
-                text-align: right;
-
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .recent-donor,
-            .recent-suggestion {
-                visibility: hidden;
-                width: 0;
-            }
-
-            .info h2 {
-                padding: 0;
-                font-size: 6vw;
-                color: rgb(70, 38, 0);
-            }
-
-            .info p,
-            .info ul {
-                padding: 0;
-                font-size: 3vw;
-                line-height: 4vw;
-            }
-
-            .info>* {
-                border-radius: 4vw;
-                border: 0.5vw dashed white;
-            }
-
-            body {
-                overflow-x: hidden;
-            }
-
-            .card p {
-                padding-bottom: 0;
-                line-height: 3dvh;
-            }
-
-            /*do not change above this in media query*/
-            .minicard>h3 {
-                font-size: 5dvh;
-                padding-top: 4dvh;
-            }
-
-            .minicard>p {
-                font-size: 2.5dvh;
-                line-height: 4dvh;
-                padding: 1vw 1vw;
-            }
-
-            .minicard>a {
-                color: aliceblue;
-                font-size: 1.5vw;
-                width: 20dvh;
-                height: 6dvh;
-                background-color: rgb(0, 0, 0);
-                padding-top: 2dvh;
-            }
-            .m12 {
-    display: none;
-}
-.m11 {
-    width: auto;
-    padding: 20px;
-}
-.mc {
-    background-color: #bdef95;
-
-}
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="loader-container">
-        <div class="loader">
-
-        </div>
+      <div class="loader"></div>
     </div>
 
     <div class="header">
+      <a href="#top"
+        ><img
+          src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
+          alt="logo/name"
+      /></a>
+      <div class="menu-buttons dropdown">
+        <a class="d1"
+          ><svg
+            class="dd"
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="30"
+            height="40"
+            viewBox="0 0 50 50"
+          >
+            <path
+              d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 L 0 7.5 z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 L 0 22.5 z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 L 0 37.5 z"
+            ></path></svg></a>
+        <a href="donate.ejs">Donate</a>
+        <a href="">Blog</a>
+        <a href="./suggest.ejs">Suggest</a>
+        <a href="#mshift">About</a>
+      </div>
 
-        <a href="#top"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
-                alt="logo/name"></a>
-        <div class="menu-buttons">
-            <a href="donate.ejs">Donate</a>
-            <a href="">Blog</a>
-            <a href="./suggest.ejs">Suggest</a>
-            <a href="#mshift">About</a>
-        </div>
-
-        <div class="mlink" >
-            <a href="">Contact Us</a>
-        </div>
-        <!-- <div class="" -->
-
+      <div class="mlink">
+        <a href="">Contact Us</a>
+      </div>
+      <!-- <div class="" -->
     </div>
     <div class="content">
-        <div class="donate">
-
-            <div class="card">
-                <div>
-                    <h2>Donate</h2>
-                    <p>Your generosity has the power to change lives. Every contribution, whether big or small, makes a profound difference in someone's world. Your donations of food, clothing, or money have the ability to offer hope, sustenance, and healing. </p>
-                    <div class="buttons">
-                        <a href="donate.ejs">Donate now</a>
-                    </div>
-                </div>
+      <div class="donate">
+        <div class="card">
+          <div>
+            <h2>Donate</h2>
+            <p>
+              Your generosity has the power to change lives. Every contribution,
+              whether big or small, makes a profound difference in someone's
+              world. Your donations of food, clothing, or money have the ability
+              to offer hope, sustenance, and healing.
+            </p>
+            <div class="buttons">
+              <a href="donate.ejs">Donate now</a>
             </div>
-            <div class="recent-donor">
-                <!--add content here please-->
-                <h1>Recent donors</h1>
-                <ul>
-                    <li>Vijay Singh</li>
-                    <li>Om Sinha</li>
-                    <li>Geeta Pal</li>
-                </ul>
-
-            </div>
-
+          </div>
         </div>
-        <!--i put donate and suggest inside another div-->
-        <div class="suggest">
-            <div class="card">
-                <div>
-                    <h2>Suggest</h2>
-                    <p>Your voice matters. Help us make a difference! Share your ideas to shape a better way of giving. From innovative strategies to practical solutions, your suggestions fuel our mission. Join us in building a more impactful platform together. Leave your mark today</p>
-                    <div class="buttons">
-                        <a href="./suggest.ejs">Suggest now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="recent-suggestion">
-                <!--add content here please-->
-                <h1>Recent Suggestions</h1>
-                <ul>
-                    <li>Lisa Murti's Proposal: "Launching a mobile app to locate nearby donation camps and share real-time updates on their needs."</li>
-                    <li>Snjeev Chauhan's Idea: "How about organizing regular blood donation drives in collaboration with local hospitals?"</li>
-                    <li>Angad Negi's Input: "Initiating a community outreach program to educate people on the importance of donating blood regularly."</li>
-                </ul>
-
-            </div>
-
+        <div class="recent-donor">
+          <!--add content here please-->
+          <h1>Recent donors</h1>
+          <ul>
+            <li>first</li>
+            <li>first</li>
+            <li>first</li>
+          </ul>
         </div>
-
+      </div>
+      <!--i put donate and suggest inside another div-->
+      <div class="suggest">
+        <div class="card">
+          <div>
+            <h2>Suggest</h2>
+            <p>
+              Your voice matters. Help us make a difference! Share your ideas to
+              shape a better way of giving. From innovative strategies to
+              practical solutions, your suggestions fuel our mission. Join us in
+              building a more impactful platform together. Leave your mark today
+            </p>
+            <div class="buttons">
+              <a href="./suggest.ejs">Suggest now</a>
+            </div>
+          </div>
+        </div>
+        <div class="recent-suggestion">
+          <!--add content here please-->
+          <h1>Recent Suggestions</h1>
+          <ul>
+            <li>
+              Lisa Murti's Proposal: "Launching a mobile app to locate nearby
+              donation camps and share real-time updates on their needs."
+            </li>
+            <li>
+              Snjeev Chauhan's Idea: "How about organizing regular blood
+              donation drives in collaboration with local hospitals?"
+            </li>
+            <li>
+              Angad Negi's Input: "Initiating a community outreach program to
+              educate people on the importance of donating blood regularly."
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="mcontainer" id="mshift">
-        <div class="m1">
-            <div class="m11">
-                <h2>What we do?</h2>
-                <p class="m">Welcome to Little Help , where we believe in the power of collective compassion to make a
-                    difference in the world. Our platform was born from a simple yet profound idea: to bridge the gap
-                    between generosity and those in need. With a mission to connect willing hearts to meaningful causes,
-                    we have created a platform that facilitates the act of giving in its simplest, most impactful form.
-                </p>
-            </div>
-            <div class="m12">
-                <img src="../public/images/websiterelated.jpg" height="240">
-            </div>
+      <div class="m1">
+        <div class="m11">
+          <h2>What we do?</h2>
+          <p class="m">
+            Welcome to Little Help , where we believe in the power of collective
+            compassion to make a difference in the world. Our platform was born
+            from a simple yet profound idea: to bridge the gap between
+            generosity and those in need. With a mission to connect willing
+            hearts to meaningful causes, we have created a platform that
+            facilitates the act of giving in its simplest, most impactful form.
+          </p>
         </div>
-
-        <div class="m1 mc">
-            <div class="m12">
-                <img src="../public/images/our purpose.jpg" height="200">
-
-            </div>
-            <div class="m11">
-                <h2>Our purpose</h2>
-                <p class="m b">At Little Help , we understand the importance of giving back to the community. We are
-                    dedicated to creating an avenue where kindness meets necessity. Our platform serves as a central hub
-                    where donors and charitable organizations can converge, creating a seamless pathway for donations to
-                    reach those who require assistance the most.</p>
-            </div>
-
+        <div class="m12">
+          <img src="../public/images/websiterelated.jpg" height="240" />
         </div>
+      </div>
 
-        <div class="m1">
-            <div class="m11">
-                <h2>What We Offer</h2>
-                <p class="m">Our website harnesses the power of technology to map out donation camps, making it
-                    effortless for users to locate and engage with nearby donation centers. Whether it's contributing
-                    food, clothing, or money, our platform simplifies the process, ensuring that your donations directly
-                    impact the lives of individuals in need. </p>
-            </div>
-            <div class="m12">
-                <img src="../public/images/whatweoffer.webp " height="240">
-            </div>
+      <div class="m1 mc">
+        <div class="m12">
+          <img src="../public/images/our purpose.jpg" height="200" />
         </div>
-
-        <div class="m1 mc">
-            <div class="m12">
-                <img src="../public/images/howitworks.gif" height="240">
-            </div>
-            <div class="m11">
-                <h2>How It Works</h2>
-                <p class="m">Through our integration with Google Maps, users can easily locate donation camps in their
-                    vicinity, allowing for convenient and timely contributions. Additionally, our user-friendly
-                    interface provides information on the types of donations accepted at each camp, making it simpler
-                    for donors to contribute based on the specific needs of each center.</p>
-            </div>
-
+        <div class="m11">
+          <h2>Our purpose</h2>
+          <p class="m b">
+            At Little Help , we understand the importance of giving back to the
+            community. We are dedicated to creating an avenue where kindness
+            meets necessity. Our platform serves as a central hub where donors
+            and charitable organizations can converge, creating a seamless
+            pathway for donations to reach those who require assistance the
+            most.
+          </p>
         </div>
+      </div>
 
-        <div class="m1">
-            <div class="m11">
-                <h2>Our Commitment</h2>
-                <p class="m">We are committed to transparency and accountability in every aspect of our operations. Rest
-                    assured, every donation made through our platform is directed towards genuine causes and
-                    organizations striving to make a tangible difference in their communities.</p>
-            </div>
-            <div class="m12">
-                <img class="mi" src="../public/images/ourcommitment.avif" height="200">
-            </div>
+      <div class="m1">
+        <div class="m11">
+          <h2>What We Offer</h2>
+          <p class="m">
+            Our website harnesses the power of technology to map out donation
+            camps, making it effortless for users to locate and engage with
+            nearby donation centers. Whether it's contributing food, clothing,
+            or money, our platform simplifies the process, ensuring that your
+            donations directly impact the lives of individuals in need.
+          </p>
         </div>
+        <div class="m12">
+          <img src="../public/images/whatweoffer.webp " height="240" />
+        </div>
+      </div>
+
+      <div class="m1 mc">
+        <div class="m12">
+          <img src="../public/images/howitworks.gif" height="240" />
+        </div>
+        <div class="m11">
+          <h2>How It Works</h2>
+          <p class="m">
+            Through our integration with Google Maps, users can easily locate
+            donation camps in their vicinity, allowing for convenient and timely
+            contributions. Additionally, our user-friendly interface provides
+            information on the types of donations accepted at each camp, making
+            it simpler for donors to contribute based on the specific needs of
+            each center.
+          </p>
+        </div>
+      </div>
+
+      <div class="m1">
+        <div class="m11">
+          <h2>Our Commitment</h2>
+          <p class="m">
+            We are committed to transparency and accountability in every aspect
+            of our operations. Rest assured, every donation made through our
+            platform is directed towards genuine causes and organizations
+            striving to make a tangible difference in their communities.
+          </p>
+        </div>
+        <div class="m12">
+          <img
+            class="mi"
+            src="../public/images/ourcommitment.avif"
+            height="200"
+          />
+        </div>
+      </div>
     </div>
 
-
-
     <footer>
-        <div class="fimg"> <img src="../public/images/littlehelporg-high-resolution-logo-transparent.png" height="60">
+      <div class="fimg">
+        <img
+          src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
+          height="60"
+        />
+      </div>
+      <div class="fp">
+        <p>
+          A fully trusted website to reduce poverty by knowing the nearest camps
+          in any city. Go donote and contribute to reduce poverty.
+        </p>
+      </div>
+      <div class="fcontainer">
+        <div class="fcontent">
+          <h3>Quick Links</h3>
+          <ul class="flist">
+            <li><a href="#top">Home</a></li>
+            <li><a href="">Donors</a></li>
+            <li><a href="#mshift">About us</a></li>
+            <li><a href="">Contact us</a></li>
+          </ul>
         </div>
-        <div class="fp">
-            <p>A fully trusted website to reduce poverty by knowing the nearest camps in any city. Go donote and
-                contribute to reduce poverty. </p>
+        <div class="fcontent">
+          <h3>Contact Us</h3>
+          <p>Address: IIIT Ranchi, JUT Campus</p>
+          <p>Email: littlehelp@gmail.com</p>
+          <p>Phone: +91 5823995988</p>
         </div>
-        <div class="fcontainer">
-            <div class="fcontent">
-                <h3>Quick Links</h3>
-                <ul class="flist">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Donors</a></li>
-                    <li><a href="">About us</a></li>
-                    <li><a href="">Contact us</a></li>
-
-
-                </ul>
-            </div>
-            <div class="fcontent">
-                <h3>Contact Us</h3>
-                <p>Address: street fjif rhfofvuhgjd f ghd f </p>
-                <p>Email: example@gmail.com</p>
-                <p>Phone: +91 5823995988</p>
-            </div>
-            <div class="fcontent">
-                <h3>Our Team</h3>
-                <p>Suryanshu</p>
-                <p>Aakrisht</p>
-                <p>Utkarsh</p>
-                <p>Nayan</p>
-            </div>
+        <div class="fcontent">
+          <h3>Our Team</h3>
+          <p>Suryanshu</p>
+          <p>Aakrisht</p>
+          <p>Utkarsh</p>
+          <p>Nayan</p>
         </div>
-        <div class="fbottom">
-            <p>&copy; 2024 littlehelp.org . All Rights Reserved.</p>
-        </div>
+      </div>
+      <div class="fbottom">
+        <p>&copy; 2024 littlehelp.org . All Rights Reserved.</p>
+      </div>
     </footer>
     <script>
-        const loaderContainer = document.querySelector('.loader-container');
-        const content = document.querySelector('.content');
-        window.addEventListener('load', () => {
-            loaderContainer.classList.add('hidden');
-            content.classList.add('visible');
-
-        });
-
-
+      const loaderContainer = document.querySelector(".loader-container");
+      const content = document.querySelector(".content");
+      window.addEventListener("load", () => {
+        loaderContainer.classList.add("hidden");
+        content.classList.add("visible");
+      });
     </script>
-</body>
-
+  </body>
 </html>
-
-
-
