@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donate</title>
     <style>
+        #map {
+            width: 300px;
+            height: 300px;
+        }
+
         body {
             height: 100vh;
             display: grid;
@@ -35,6 +40,7 @@
             display: none;
         }
     </style>
+    <script type="module" src="./index.js"></script>
 </head>
 
 <body>
@@ -65,8 +71,20 @@
     </div>
     <div class="table">
     </div>
+    <div id="map"></div>
+
+    <!-- prettier-ignore -->
+
+    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyA4IGQAa3lWLh2jy1gRqEjybQ5aAqVDKcg", v: "weekly" });</script>
+
 
     <script type="module">
+        //Google Maps
+
+
+
+
         //firebase setup start
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
@@ -139,15 +157,17 @@
             var long = position.coords.longitude;
             console.log(lat, long);
             // Make a request to a Geocoding API (e.g. Google Maps Geocoding API)
-            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyA4IGQAa3lWLh2jy1gRqEjybQ5aAqVDKcg`;
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyAdQUa5-QKIL38-Hw6-Z9lN8AmfMEguFJU`;
             var city = "";
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
                     // Parse the city name from the API response
+                    console.log(data);
                     city = data.results[0].address_components.find((component) =>
                         component.types.includes("locality")
                     ).long_name;
+
                     var dis = 10;
                     searchCityWithDistance(city, dis, lat, long);
                     console.log(city);
@@ -182,6 +202,32 @@
                                 <h1>${addr}</h1> 
                             </div>`;
                     }
+                    let map;
+
+                    async function initMap() {
+                        const { Map } = await google.maps.importLibrary("maps");
+
+                        map = new Map(document.getElementById("map"), {
+                            center: { lat: 26.6, lng: 77.08 },
+                            zoom: 6,
+
+                        });
+                        for (let i = 1; i <= Object.keys(snapshot.val()).length; i++) {
+                            var lat = Number(lula(snapshot.val(), `id${i}.latitude`));
+                            var long = Number(lula(snapshot.val(), `id${i}.longitude`));
+                            console.log(lat, long);
+                            new google.maps.Marker({
+                                position: { lat: lat, lng: long },
+                                map: map,
+                                draggable: false,
+                                animation: google.maps.Animation.DROP,
+
+                            })
+                        }
+
+                    }
+
+                    initMap();
 
                 }
                 else {
