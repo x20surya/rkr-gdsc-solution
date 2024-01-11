@@ -1140,8 +1140,16 @@
 
 
         //------------------------------------------------------------------------------------------------------------------------------>>>>
-
-
+        let textBox=document.getElementById("city");
+        textBox.addEventListener("keypress", function (event) { 
+  
+            // Checking if key pressed is ENTER or not 
+            // if the key pressed is ENTER 
+            // click listener on button is called 
+            if (event.keyCode == 13) { 
+                getData(); 
+            } 
+            }); 
 
         //to get location of user
         function showCity(position) {
@@ -1181,6 +1189,9 @@
 
         async function getData() {
             var cityPrompt = document.getElementById("city").value;
+            
+            document.getElementsByClassName("curve6")[0].classList.add("inv2");
+            document.getElementsByClassName("curve7")[0].classList.add("inv2");
             async function run(cityPrompt) {
                 // For text-only input, use the gemini-pro model
                 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
