@@ -917,6 +917,9 @@
             color: white;
             text-align: center;
         }
+        .inv2{
+            display: none;
+        }
     </style>
     <script type="module" src="./index.js"></script>
 </head>
@@ -961,8 +964,8 @@
     <div class="curve3"></div>
     <div class="curve4"></div>
     <div class="curve5"></div>
-    <div class="curve6"></div>
-    <div class="curve7"></div>
+    <div class="curve6 inv2"></div>
+    <div class="curve7 inv2"></div>
     <div class="curve8"></div>
     <div class="curve9"></div>
     <div class="curve10"></div>
@@ -1202,10 +1205,18 @@
             document.getElementById('place').innerHTML = city;
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 if (snapshot.exists()) {
+                    const x=2;
+                    if(Number(Object.keys(snapshot.val()).length)>x){
+                            document.getElementsByClassName("curve6")[0].classList.remove("inv2");
+                            document.getElementsByClassName("curve7")[0].classList.remove("inv2");
+                        }
                     for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
 
                         var addr = lula(snapshot.val(), `id${i}.address`);
-
+                        // if(i>2){
+                        //     document.getElementsByClassName("curve6").classList.remove("inv2");
+                        //     document.getElementsByClassName("curve7").classList.remove("inv2");
+                        // }
                         console.log(addr);
                         if (lula(snapshot.val(), `id${i}.name`) != undefined) {
                             if (type == "Food,Clothes & Money")
@@ -1294,9 +1305,15 @@
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 console.log(snapshot.val());
                 if (snapshot.exists()) {
-                    for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
+                    const x=2;
+                    if(Number(Object.keys(snapshot.val()).length)>x){
+                            document.getElementsByClassName("curve6")[0].classList.remove("inv2");
+                            document.getElementsByClassName("curve7")[0].classList.remove("inv2");
+                        }
+                    for (var i = 1; i <=Object.keys(snapshot.val()).length ; i++) {
                         console.log("Rec->->");
                         console.log(snapshot.val());
+                        
                         dis = getDistanceFromLatLonInKm(lat, long, lula(snapshot.val(), `id${i}.latitude`), lula(snapshot.val(), `id${i}.longitude`));
                         console.log(city);
                         console.log("DIS======" + dis);
