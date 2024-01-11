@@ -1046,10 +1046,6 @@
         </div>
     </footer>
     <!-- prettier-ignore -->
-
-    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
-            ({ key: "AIzaSyA4IGQAa3lWLh2jy1gRqEjybQ5aAqVDKcg", v: "weekly" });</script>
-
     <script>
         const loaderContainer = document.querySelector(".loader-container");
         const content = document.querySelector(".content");
@@ -1063,14 +1059,23 @@
         }
         document.getElementsByClassName("dd").addEventListener("click", myFunction);
     </script>
+
+    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyA4IGQAa3lWLh2jy1gRqEjybQ5aAqVDKcg", v: "weekly" });</script>
+
     <script type="module">
         //Loader
-
-
-
-
         //firebase setup start
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyAyMY211u5qV0ljzfFS6mHgRK4alTrUVB0";
+
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        // ...
 
 
         const firebaseConfig = {
@@ -1171,9 +1176,24 @@
         const lula = (t, path) =>
             path.split(".").reduce((r, k) => r?.[k], t)
 
-        function getData() {
-            var city = document.getElementById("city").value;
-            city = city.slice(0, 1).toUpperCase() + city.slice(1).toLowerCase();
+        async function getData() {
+            var cityPrompt = document.getElementById("city").value;
+            async function run(cityPrompt) {
+                // For text-only input, use the gemini-pro model
+                const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+                const prompt = `Get a city name from this statement -${cityPrompt}- and use latest names of the city and if the city is small then use the neares big city and return just the city`;
+
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const text = response.text();
+                console.log(text);
+                return text;
+            }
+
+            var city = await run(cityPrompt);
+
+            console.log(city);
             searchCity(city);
         }
         function searchCity(city) {
