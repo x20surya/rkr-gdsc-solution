@@ -1210,6 +1210,10 @@
                             document.getElementsByClassName("curve6")[0].classList.remove("inv2");
                             document.getElementsByClassName("curve7")[0].classList.remove("inv2");
                         }
+                    if(Number(Object.keys(snapshot.val()).length)<=x){
+                        document.getElementsByClassName("curve6")[0].classList.add("inv2");
+                            document.getElementsByClassName("curve7")[0].classList.add("inv2");
+                        }
                     for (var i = 1; i <= Object.keys(snapshot.val()).length; i++) {
 
                         var addr = lula(snapshot.val(), `id${i}.address`);
@@ -1309,6 +1313,10 @@
                     if(Number(Object.keys(snapshot.val()).length)>x){
                             document.getElementsByClassName("curve6")[0].classList.remove("inv2");
                             document.getElementsByClassName("curve7")[0].classList.remove("inv2");
+                        }
+                    if(Number(Object.keys(snapshot.val()).length)<=x){
+                        document.getElementsByClassName("curve6")[0].classList.add("inv2");
+                            document.getElementsByClassName("curve7")[0].classList.add("inv2");
                         }
                     for (var i = 1; i <=Object.keys(snapshot.val()).length ; i++) {
                         console.log("Rec->->");
