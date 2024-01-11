@@ -1315,6 +1315,7 @@
                             }
                         }
                     }
+                    let map;
                     async function initMap() {
                         const { Map } = await google.maps.importLibrary("maps");
 
@@ -1326,6 +1327,7 @@
                         for (let i = 1; i <= Object.keys(snapshot.val()).length; i++) {
                             var lat = Number(lula(snapshot.val(), `id${i}.latitude`));
                             var long = Number(lula(snapshot.val(), `id${i}.longitude`));
+                            console.log(Number(lula(snapshot.val(), `id${1}.latitude`)));
                             console.log(lat, long);
                             new google.maps.Marker({
                                 position: { lat: lat, lng: long },
