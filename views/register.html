@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="MainForm">
+        <div>
+            <input type="email" id="emailInp" placeholder="name@example.com">
+            <label>Email</label>
+
+        </div>
+        <div>
+            <input type="password" id="passwordInp" placeholder="Password">
+            <label>Password</label>
+        </div>
+        <div>
+            <input type="text" id="fnameInp" placeholder="First Name">
+            <label>First Name</label>
+
+        </div>
+        <div>
+            <input type="text" id="lnameInp" placeholder="Last Name">
+            <label>Last Name</label>
+
+        </div>
+        <button type="submit">Create New User</button>
+        <a href="login.html"><button type="button">Sign In</button></a>
+
+    </form>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBArOVoz0GEbbHzROw3CQy21xKzJZZBoyg",
+            authDomain: "gdsc-solution-d963e.firebaseapp.com",
+            databaseURL: "https://gdsc-solution-d963e-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "gdsc-solution-d963e",
+            storageBucket: "gdsc-solution-d963e.appspot.com",
+            messagingSenderId: "868921508827",
+            appId: "1:868921508827:web:4fb017bdd70b8a4ad19dfe",
+            measurementId: "G-Q8HQPBRYC8"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+
+
+
+        const db = getDatabase();
+        const auth = getAuth(app);
+        let EmailInp = document.getElementById("emailInp");
+        let PassInp = document.getElementById("passwordInp");
+        let FnameInp = document.getElementById("fnameInp");
+        let LnameInp = document.getElementById("lnameInp");
+        let MainForm = document.getElementById("MainForm");
+
+        let RegisterUser = evt => {
+            evt.preventDefault();
+
+            createUserWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
+                .then((credentials) => {
+                    console.log(credentials)
+                    set(ref(db,'UsersAuthList/'+credentials.user.uid),{
+                        firstname: FnameInp.value,
+                        lastname: LnameInp.value
+                    })
+
+                })
+                .catch((error)=>{
+                    alert(error.message);
+                    console.log(error.code);
+                    console.log(error.message);
+                })
+        }
+
+        MainForm.addEventListener('submit',RegisterUser)
+    </script>
+</body>
+
+</html>
