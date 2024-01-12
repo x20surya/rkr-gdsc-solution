@@ -69,7 +69,7 @@
             display: flex;
             margin: 0;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
 
             box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
             position: fixed;
@@ -84,7 +84,7 @@
             height: 60px;
             margin-top: 10px;
             margin-bottom: 10px;
-            padding-left: 30px;
+            
             padding-right: 10px;
         }
 
@@ -94,8 +94,10 @@
 
         .menu-buttons {
             display: flex;
+            gap: 50px;
             align-items: center;
-            justify-content: space-around;
+            
+            justify-content: space-between;
             margin-right: 30px;
         }
 
@@ -136,7 +138,7 @@
 
             font-size: 20px;
 
-            width: 90px;
+            
 
         }
 
@@ -202,6 +204,7 @@
             grid-area: 3/2/-1/-1;
             text-align: right;
             display: flex;
+            
             flex-direction: row-reverse;
             margin-right: 80px;
         }
@@ -219,6 +222,7 @@
             transform: translate3d(2rem, 0, 0);
             transition-property: opacity, transform;
             text-align: left;
+           
         }
 
         .donate:hover .recent-donor,
@@ -337,7 +341,7 @@
         }
 
         .recent-suggestion>h1 {
-            text-align: right;
+            text-align: justify;
             padding-right: 2vw;
         }
 
@@ -352,8 +356,13 @@
 
         .recent-suggestion>ul {
             padding: 0;
-            text-align: end;
+            text-align: left;
             padding-right: 2vw;
+        }
+        .recent-suggestion ul li p{
+            display: inline;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         .recent-donor,
@@ -600,6 +609,7 @@
             .menu-buttons {
                 width: 0;
                 display: none;
+                
             }
 
             .d1 {
@@ -611,6 +621,7 @@
                 background-color: transparent;
                 color: white;
                 padding: 16px;
+                
                 font-size: 16px;
                 border: none;
                 cursor: pointer;
@@ -623,10 +634,12 @@
             .dropdown {
                 position: relative;
                 display: inline-block;
+                order: 1;
+                
             }
 
             /* Dropdown Content (Hidden by Default) */
-            .dropdown-content {
+            .dropdown-content{
                 display: none;
                 position: absolute;
                 right: 10%;
@@ -636,9 +649,9 @@
                 z-index: 1;
             }
 
-            .mlink {
+            /* .mlink {
                 display: none;
-            }
+            } */
 
             /* Links inside the dropdown */
             .dropdown-content a {
@@ -649,7 +662,7 @@
             }
 
             /* Change color of dropdown links on hover */
-            .dropdown-content a:hover {
+            .dropdown-content .a:hover {
                 background-color: #ddd;
             }
 
@@ -692,14 +705,15 @@
             </button>
             <div class="menu-buttons dropdown-content" id="myDropdown">
 
-                <a href="donate.ejs">Donate</a>
-                <a href="">Blog</a>
-                <a href="./suggest.ejs">Suggest</a>
-                <a href="#mshift">About</a>
-                <div class="mlink">
-                    <a href="">Contact Us</a>
-                </div>
-            </div>
+                <a    href="donate.ejs">Donate</a>
+                <a    href="">Blog</a>
+                <a    href="./suggest.ejs">Suggest</a>
+                <a    href="#mshift">About</a>
+               
+            </div>            
+        </div>
+        <div class="mlink">
+            <a href="">Contact Us</a>
         </div>
 
 
@@ -752,17 +766,14 @@
                 <h1>Recent Suggestions</h1>
                 <ul>
                     <li>
-                        Lisa Murti's Proposal: "Launching a mobile app to locate nearby
+                       <p > Lisa Murti's Idea</p>:"Launching a mobile app to locate nearby
                         donation camps and share real-time updates on their needs."
                     </li>
                     <li>
-                        Snjeev Chauhan's Idea: "How about organizing regular blood
+                        <p >  Snjeev Chauhan's Idea</p>:"How about organizing regular blood
                         donation drives in collaboration with local hospitals?"
                     </li>
-                    <li>
-                        Angad Negi's Input: "Initiating a community outreach program to
-                        educate people on the importance of donating blood regularly."
-                    </li>
+                   
                 </ul>
             </div>
         </div>
@@ -868,7 +879,7 @@
                 <ul class="flist">
                     <li><a href="#top">Home</a></li>
                     <li><a href="">Donors</a></li>
-                    <li><a href="#mshift">About us</a></li>
+                    <li><a href="#mshift">About us</a></li> 
                     <li><a href="">Contact us</a></li>
                 </ul>
             </div>
