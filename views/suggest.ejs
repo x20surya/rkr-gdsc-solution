@@ -6,38 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        input{
+        input {
             height: 2vw;
             text-align: center;
             border: 0vw solid black;
             border-radius: 0.5vw;
         }
+
         body {
             margin: 0;
 
         }
-        .header{
-            height:15dvh;
+
+        .header {
+            height: 15dvh;
             background-color: aquamarine;
         }
-        .inv1{
+
+        .inv1 {
             display: none;
-            
+
         }
-        .content{
+
+        .content {
             background-color: aqua;
             margin: 0 3vw;
-            border-radius:2vw ;
+            border-radius: 2vw;
         }
-        .inv{
+
+        .inv {
             display: flex;
             flex-direction: column;
             width: 8vw;
         }
-        .content{
+
+        .content {
             text-align: center;
         }
-        .input{
+
+        .input {
             display: flex;
             justify-content: space-around;
         }
@@ -53,7 +60,7 @@
         <h1>Suggest</h1>
         <div class="input city">
             <h1>Name of City:</h1>
-            <input placeholder="City" type="city" id="city" required/>
+            <input placeholder="City" type="city" id="city" required />
         </div>
         <div class="input name">
             <h1>Name of Program:</h1>
@@ -65,7 +72,7 @@
         </div>
         <div class="input address">
             <h1>Address:</h1>
-            <input placeholder="Address" type="address" id="address" required/>
+            <input placeholder="Address" type="address" id="address" required />
         </div>
         <div class="input position">
             <input placeholder="Latitude" type="latitude" id="latitude" />
@@ -91,13 +98,44 @@
             </div>
         </div>
         <button id="submit">Submit</button>
+        <button id="signoutbutton">Sign Out</button>
     </div>
     <h1 id="data"></h1>
+    <h2 id="msg"></h2>
+    <h2 id="greet"></h2>
 
     <script type="module">
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
 
+        let MsgHead = document.getElementById('msg');
+        let GreetHead = document.getElementById('greet');
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location.href = 'login.ejs';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds")) {
+                window.location.href = 'login.ejs';
+            }
+            else {
+                MsgHead.innerText = `user with email ${UserCreds.email} logged in`;
+                GreetHead.innerText = `welcome ${UserInfo.firstname + " " + UserInfo.lastname}`;
+            }
+
+        }
+
+        window.addEventListener('load',CheckCred);
+        SignoutBtn.addEventListener('click',Signout);
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBArOVoz0GEbbHzROw3CQy21xKzJZZBoyg",
@@ -119,30 +157,30 @@
 
         let SubmitBtn = document.getElementById("submit");
 
-//-------------------------------------------------------------------------------------------------->>
-        var type="Food,Clothes & Money";
-        function showDropOptions(){
+        //-------------------------------------------------------------------------------------------------->>
+        var type = "Food,Clothes & Money";
+        function showDropOptions() {
             document.querySelector(".optionsType").classList.toggle("inv");
         }
-        function any(){
-            type="Food, Clothes & Money";
+        function any() {
+            type = "Food, Clothes & Money";
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="ANY";
+            document.getElementById("typeBtn").innerHTML = "ANY";
         }
-        function food(){
-            type="Food";
+        function food() {
+            type = "Food";
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="FOOD";
+            document.getElementById("typeBtn").innerHTML = "FOOD";
         }
-        function clothes(){
-            type="Clothes";
+        function clothes() {
+            type = "Clothes";
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="CLOTHES";
+            document.getElementById("typeBtn").innerHTML = "CLOTHES";
         }
-        function money(){
-            type="Money";
+        function money() {
+            type = "Money";
             document.querySelector(".optionsType").classList.toggle("inv");
-            document.getElementById("typeBtn").innerHTML="MONEY";
+            document.getElementById("typeBtn").innerHTML = "MONEY";
         }
         document.getElementById("typeBtn").addEventListener("click", showDropOptions);
         document.getElementById("food").addEventListener("click", food);
@@ -150,26 +188,24 @@
         document.getElementById("clothes").addEventListener("click", clothes);
         document.getElementById("any").addEventListener("click", any);
 
-
-//---------------------------------------------------------------------------------------------------------------------->>>>>>>>>>>
-
+        //---------------------------------------------------------------------------------------------------------------------->>>>>>>>>>>
 
         async function save() {
             var city = document.getElementById("city").value;
-            city=firstCap(city);
+            city = firstCap(city);
             var name = document.getElementById("name").value;
-            name=firstCap(name);
-            var x= await getData(city);
+            name = firstCap(name);
+            var x = await getData(city);
             console.log(x);
             var id = `id${x}`;
-            console.log(city+"   1   "+name+"    2  "+id+"   3  ");
+            console.log(city + "   1   " + name + "    2  " + id + "   3  ");
             var organization = document.getElementById("organization").value;
-            organization=firstCap(organization);
+            organization = firstCap(organization);
             var address = document.getElementById("address").value;
-            address=firstCap(address);
+            address = firstCap(address);
             var latitude = document.getElementById("latitude").value;
             var longitude = document.getElementById("longitude").value;
-            
+
             var contact = document.getElementById("contact").value;
             var email = document.getElementById("email").value;
             set(ref(db, "city/" + city + "/" + "id" + id), {
@@ -180,14 +216,14 @@
                 longitude: longitude,
                 type: type,
                 name: name,
-                contact : contact,
+                contact: contact,
                 email: email,
 
 
 
             }).then(() => {
                 alert("saved");
-                
+
             })
                 .catch((error) => {
                     alert('error');
@@ -200,8 +236,8 @@
             get(child(dbRef, 'city/' + city)).then((snapshot) => {
                 console.log("---------------------");
                 if (snapshot.exists()) {
-                    console.log(Object.keys(snapshot.val()).length +1);
-                    return Object.keys(snapshot.val()).length +1;
+                    console.log(Object.keys(snapshot.val()).length + 1);
+                    return Object.keys(snapshot.val()).length + 1;
                 }
                 else {
                     alert("new");
@@ -213,10 +249,10 @@
                     console.log(error);
                 });
         }
-        function firstCap(city){
-            return city.slice(0,1).toUpperCase()+ city.slice(1).toLowerCase();;
+        function firstCap(city) {
+            return city.slice(0, 1).toUpperCase() + city.slice(1).toLowerCase();;
         }
-        function clearInput(){
+        function clearInput() {
             var city = document.getElementById("city").value;
             var id = document.getElementById("id").value;
             var organization = document.getElementById("organization").value;
@@ -233,8 +269,8 @@
         }
 
         SubmitBtn.addEventListener("click", save);
-        
-        
+
+
 
 
     </script>
