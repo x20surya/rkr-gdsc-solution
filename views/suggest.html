@@ -6,12 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        input {
-            height: 2vw;
-            text-align: center;
-            border: 0vw solid black;
-            border-radius: 0.5vw;
+         .header img {
+            height: 60px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 40px;
+            padding-right: 10px;
         }
+
+        .sep {
+            display: flex;
+            gap: 50px;
+           
+        }
+        
+        .content {
+            margin-left: 230px;
+            padding-left: 30px;
+            background-color: rgb(205, 199, 199);
+            width: 70%;
+            margin-top: 120px;
+            border-radius: 7px;
+            padding-bottom: 30px;
+        }
+      
 
         body {
             margin: 0;
@@ -19,59 +37,116 @@
         }
 
         .header {
-            height: 15dvh;
-            background-color: aquamarine;
-        }
-
-        .inv1 {
-            display: none;
-
-        }
-
-        .content {
-            background-color: aqua;
-            margin: 0 3vw;
-            border-radius: 2vw;
-        }
-
-        .inv {
             display: flex;
-            flex-direction: column;
-            width: 8vw;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(217, 252, 209);
+            position: fixed;
+            width: 100%;
+        }
+        #greet {
+            justify-content: flex-end;
+            font-size: 22px;
+            font-weight:500;
+            background-color: rgb(211, 210, 210);
+            border-radius: 1rem;
+            padding: 10px;
+            margin-right: 40px;
         }
 
-        .content {
-            text-align: center;
+        .hdas {
+            font-size: 30px;
+            
+            font-weight:600;
+           
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
+     
+
+        .sys {
+            display: flex;
+            
+            
+        }
+        .scr {
+            margin: 0;
+            padding: 0;
+            border-right: 1px solid rgb(172, 168, 168);
+            margin-top: 100px;
+            position: fixed;
+            z-index: 999;
+            height: 60%;
+            border-bottom: 1px solid rgb(172, 168, 168);
+            
+        }
+        .scr1 {
+            padding-left: 40px;
+            padding-right: 80px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-size: 24px;
+            border-bottom: 1px solid rgb(172, 168, 168);
+            background-color: rgb(136, 237, 136);
+        }
+        .sen {
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .sen1 {
+            font-size: 25px;
+            font-weight: 500;
+        }
         .input {
             display: flex;
-            justify-content: space-around;
+        }
+
+        .input input {
+            height: 30px;
+            margin-top: 25px;
+            
+            font-size: 18px;
+            width: 50%;
+            border: none;
+            background-color: rgb(205, 199, 199);
+            border-bottom: 1px solid black;
         }
     </style>
 </head>
 
 <body>
     <div class="header">
+        <div class="sep">
+        <a href="#top"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
+            alt="logo/name" /></a>
+            <p class="hdas">Dashboard</p>
+        </div>
+            <p id="greet"></p>
+    </div>
 
+ <div class="sys">
+    <div class="scr">
+        <p class="scr1">Suggest</p>
     </div>
 
     <div class="content">
-        <h1>Suggest</h1>
+        <p class="sen">Suggest</p>
+        <hr>
         <div class="input city">
-            <h1>Name of City:</h1>
+            <p class="sen1">Name of City:</p>
             <input placeholder="City" type="city" id="city" required />
         </div>
         <div class="input name">
-            <h1>Name of Program:</h1>
+            <p class="sen1">Name of Program:</p>
             <input placeholder="Name" type="name" id="name" required />
         </div>
         <div class="input organization">
-            <h1>Name of Associated Organization:</h1>
+            <p class="sen1"1>Name of Associated Organization:</p>
             <input placeholder="Organization" type="organization" id="organization">
         </div>
         <div class="input address">
-            <h1>Address:</h1>
+            <p class="sen1">Address:</p>
             <input placeholder="Address" type="address" id="address" required />
         </div>
         <div class="input position">
@@ -91,7 +166,7 @@
             </div>
         </div>
         <div class="input contactInfo">
-            <h1>Contact Information</h1>
+            <p class="sen1">Contact Information</p>
             <div>
                 <input placeholder="Contact" type="contact" id="contact" />
                 <input placeholder="Email" type="email" id="email" />
@@ -100,6 +175,7 @@
         <button id="submit">Submit</button>
         <button id="signoutbutton">Sign Out</button>
     </div>
+</div>
     <h1 id="data"></h1>
     <h2 id="msg"></h2>
     <h2 id="greet"></h2>
@@ -127,7 +203,7 @@
             }
             else {
                 MsgHead.innerText = `user with email ${UserCreds.email} logged in`;
-                GreetHead.innerText = `welcome ${UserInfo.firstname + " " + UserInfo.lastname}`;
+                GreetHead.innerText = `User :-  ${UserInfo.firstname }`;
             }
 
         }
