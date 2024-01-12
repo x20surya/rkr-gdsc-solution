@@ -102,7 +102,7 @@
             display: flex;
             margin: 0;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
 
             box-shadow: 0.5px 0.5px 5px rgb(136, 136, 136);
             position: fixed;
@@ -120,7 +120,7 @@
             height: 60px;
             margin-top: 10px;
             margin-bottom: 10px;
-            padding-left: 30px;
+           
             padding-right: 10px;
         }
 
@@ -130,8 +130,10 @@
 
         .menu-buttons {
             display: flex;
+            gap: 50px;
             align-items: center;
-            justify-content: space-around;
+            
+            justify-content: space-between;
             margin-right: 30px;
         }
 
@@ -172,7 +174,7 @@
 
             font-size: 20px;
 
-            width: 90px;
+            /* width: 90px; */
 
         }
 
@@ -860,6 +862,7 @@
             .dropdown1 {
                 position: relative;
                 display: inline-block;
+                order: 1;
             }
 
             /* Dropdown Content (Hidden by Default) */
@@ -873,9 +876,9 @@
                 z-index: 1;
             }
 
-            .mlink {
+            /* .mlink {
                 display: none;
-            }
+            } */
 
             /* Links inside the dropdown */
             .dropdown-content1 a {
@@ -929,7 +932,7 @@
         <div class="loader"></div>
     </div>
     <div class="header">
-        <a href="#top"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
+        <a href="./index.ejs"><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png"
                 alt="logo/name" /></a>
         <div class="dropdown1">
             <button class="dropbtn d1" onclick="myFunction()">
@@ -946,10 +949,11 @@
                 <a href="">Blog</a>
                 <a href="./suggest.ejs">Suggest</a>
                 <a href="#mshift">About</a>
-                <div class="mlink">
-                    <a href="">Contact Us</a>
-                </div>
+               
             </div>
+        </div>
+        <div class="mlink">
+            <a href="">Contact Us</a>
         </div>
 
 
