@@ -5,39 +5,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <style>
         div {
             display: flex;
             flex-direction: column;
         }
+      body {
+        background-color: rgb(228, 227, 227);
+        display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+      }
+
+      .lcontainer {
+        background-color: white;
+        box-shadow: 2px 2px 2px   rgb(185, 182, 182);
+     width: 400px;
+     height: 500px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-start;
+     padding-left: 50px;
+     gap: 30px;
+     
+     
+      }
+      .limg {
+        
+        width: 40%;
+      }
+      /* #emailInp {
+        width: 300px;
+      } */
+      #MainForm {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 60px;
+        margin-top: 0;
+        
+      }
+
+      #emailInp,#passwordInp {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        width: 300px;
+        font-size: 17px;
+        border: none;
+        border-bottom: 1px solid rgb(106, 103, 103);
+      }
+      #signin {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid black;
+        width: 300px;
+        background-color: rgb(61, 221, 61);
+        cursor: pointer;
+        font-size: 15px;
+        color: rgb(42, 40, 40);
+      }
+      .lcontainer p {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+        font-size: 24px;
+        font-weight:500 ;
+        
+      }
+      .reg {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+      }
+      .reg .reg1 {
+        font-weight: 0;
+        font-size: 17px;
+        font-family:Arial, Helvetica, sans-serif;
+      }
+      .reg #b43 {
+        color: rgb(69, 69, 222);
+       cursor: pointer;
+       background-color: transparent;
+       border: none;
+       font-size: 15px;
+       
+      }
     </style>
 </head>
 
 <body>
+    <div class="lcontainer">
+    <div class="limg">
+       <a href="./index.ejs" ><img src="../public/images/littlehelporg-high-resolution-logo-transparent.png" height="50px" ></a>
+    </div>
+    <p>Sign in</p>
     <form id="MainForm">
         <div>
+           
             <input type="email" id="emailInp" placeholder="name@example.com">
-            <label>Email</label>
+            
 
         </div>
         <div>
+            
             <input type="password" id="passwordInp" placeholder="Password">
-            <label>Password</label>
+            
         </div>
-        <div>
-            <input type="text" id="fnameInp" placeholder="First Name">
-            <label>First Name</label>
-
-        </div>
-        <div>
-            <input type="text" id="lnameInp" placeholder="Last Name">
-            <label>Last Name</label>
-
-        </div>
-        <button type="submit" id="signin" >Log In</button>
-        <a href="./register.html"><button type="button">Create New User</button></a>
-
+        
+        <button type="submit" id="signin"  >Log In</button>
+        <div class="reg">
+            <p class="reg1">No Account?</p>
+        <a href="./register.html"><button type="button" id="b43">Create New User!</button></a>
+    </div>
     </form>
+</div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
