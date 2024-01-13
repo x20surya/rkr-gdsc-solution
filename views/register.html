@@ -6,38 +6,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        div {
+             div {
             display: flex;
             flex-direction: column;
         }
+      body {
+        background-color: rgb(228, 227, 227);
+        display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+      }
+
+      .lcontainer {
+        background-color: white;
+        box-shadow: 2px 2px 2px   rgb(185, 182, 182);
+     width: 400px;
+     height: 500px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-start;
+     padding-left: 50px;
+     gap: 5px;
+     
+     
+      }
+      .limg {
+        
+        width: 40%;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+      /* #emailInp {
+        width: 300px;
+      } */
+      #MainForm {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 30px;
+        margin-top: 0;
+        
+      }
+
+      #emailInp,#passwordInp,#fnameInp,#lnameInp {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        width: 300px;
+        font-size: 17px;
+        border: none;
+        border-bottom: 1px solid rgb(106, 103, 103);
+      }
+      #signin {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px solid black;
+        width: 300px;
+        background-color: rgb(61, 221, 61);
+        cursor: pointer;
+        font-size: 15px;
+        color: rgb(42, 40, 40);
+      }
+      .lcontainer p {
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+        font-size: 24px;
+        font-weight:500 ;
+        
+      }
+      .reg {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+      }
+      
+      
+      .reg #b43 {
+        color: rgb(69, 69, 222);
+       cursor: pointer;
+       background-color: transparent;
+       border: none;
+       font-size: 15px;
+       
+      }
     </style>
 </head>
 
 <body>
+    <div class="lcontainer">
+    <div class="limg">
+        <img src="../public/images/littlehelporg-high-resolution-logo-transparent.png" height="50px" >
+    </div>
+    <p>Create Account</p>
     <form id="MainForm">
         <div>
             <input type="email" id="emailInp" placeholder="name@example.com">
-            <label>Email</label>
+           
 
         </div>
         <div>
             <input type="password" id="passwordInp" placeholder="Password">
-            <label>Password</label>
+            
         </div>
         <div>
             <input type="text" id="fnameInp" placeholder="First Name">
-            <label>First Name</label>
+           
 
         </div>
         <div>
             <input type="text" id="lnameInp" placeholder="Last Name">
-            <label>Last Name</label>
+            
 
         </div>
-        <button type="submit">Create New User</button>
-        <a href="login.html"><button type="button">Sign In</button></a>
-
+        <button type="submit" id="signin">Create New User</button>
+        <div class="reg">
+           
+        <a href="login.html"><button type="button" id="b43">Sign In </button></a>
+    </div>
     </form>
+</div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
